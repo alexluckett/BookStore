@@ -34,7 +34,7 @@ class UserLogin extends GuestAction {
             
             $_REQUEST["errorTitle"] = "Invalid login details";
             $_REQUEST["errorMessage"] = "The username or password you supplied was incorrect. Please try again.";
-            include('view/displayError.php'); // reload with new permissions
+            include('view/login.php'); // reload with new permissions
         }
     }
 

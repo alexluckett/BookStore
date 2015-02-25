@@ -1,7 +1,7 @@
 <style type="text/css">
     #container {
         margin: 0 auto;
-        margin-top: 10%;
+        margin-top: 5%;
         width: 20%;
     }
     
@@ -27,6 +27,22 @@
 
 <div id="container">
     <form action="index.php?action=login" method="post" class="form-signin">
+        
+        <?php
+        $errorTitle = "";
+        $errorMessage = "";
+        
+        if(isset($_REQUEST["errorTitle"])) { $errorTitle = "<b>".$_REQUEST["errorTitle"].". </b>"; }
+        if(isset($_REQUEST["errorMessage"])) { $errorMessage = $_REQUEST["errorMessage"]; }
+        
+        $printout = $errorTitle.$errorMessage;
+        
+        if(strlen($printout) != 0) {  ?>
+            <div class="alert alert-danger">
+            <?php echo $printout; ?>
+            </div>
+        <?php } ?>
+        
         <h2 class="form-signin-heading">Please log in</h2>
         <label for="username" class="sr-only">Username: </label>
             <input name="username" type="text" class="form-control" placeholder="Username" required autofocus />
