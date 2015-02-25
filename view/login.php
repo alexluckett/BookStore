@@ -8,7 +8,7 @@
     /* the below styling is based on the bootstrap
      * example at http://getbootstrap.com/examples/signin/signin.css 
      */
-    .form-signin input[type="email"] {
+    .form-signin input[type="text"] {
         margin-bottom: -1px;
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
