@@ -1,14 +1,16 @@
 <?php
 
+include 'model/domainmodels/userModel.php';
+
 /**
  * Description of UserLogin
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */
-class UserLogin extends AuthenticatedAction {
+class UserLogin extends GuestAction {
     
     public function execute() {
-        $this->authenticate();
+        $this->authenticate($_POST['username'], $_POST['password']);
     }
     
     private function authenticate($username, $password) {
@@ -18,16 +20,16 @@ class UserLogin extends AuthenticatedAction {
 
         if (isset($user) && !is_bool($user)) {
             $_SESSION['username'] = $user->username;
-
-            $permission = $user->permission;
-            $_SESSION['permission'] = $permission;
+            $_SESSION['permission'] = $user->permission;
             $_SESSION['permissionString'] = $user->permissionString;
-            $_SESSION['currentUser'] = $user;
 
             header('Location: index.php'); // reload with new permissions
         } else {
-            session_destroy();
-            echo 'log in attempt: fail';
+            if(session_status() === PHP_SESSION_ACTIVE) {
+                session_destroy();
+            }
+            
+            echo 'log in attempt: fail. <a href="index.php">Go back?</a>';
         }
     }
 
@@ -48,16 +50,11 @@ class UserLogin extends AuthenticatedAction {
         $statement->setFetchMode(PDO::FETCH_CLASS, 'UserModel');
         $statement->execute();
         $user = $statement->fetch();
-
-        if (sizeof($user) != 1) {
-            throw new Exception('Critical error: multiple users returned for username and password. Terminating.');
-        }
-
         return $user; // need one user returned, else invalid login details
     }
 
     public function pageInclude() {
-        return "index.php";
+        return "/index.php";
     }
 
 }

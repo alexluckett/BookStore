@@ -1,5 +1,6 @@
 <?php
 
+include ('dbConfig.php');
 include ('actionFactory.php');
 
 class Controller {
@@ -18,9 +19,6 @@ class Controller {
         
         if(isset($actionName)) {
             $action = $this->actionFactory->getAction($actionName);
-            
-            sexyVarDump("Action map", $this->actionFactory);
-            sexyVarDump("Action object", $action);
                         
             if($action->isLegalRequest()) {
                 $action->execute();
@@ -32,22 +30,30 @@ class Controller {
                 
                 echo("You do not have permission to run this action.");
             }
-        } else {            
-            $displayLoginAction = $this->actionFactory->getAction('displayLogin');
-            $this->loadPage($displayLoginAction);
+        } else {
+            if(isset($_SESSION['permission']) && $_SESSION['permission'] !== 0) {                
+                $this->loadHome();
+            } else {
+                $displayLoginAction = $this->actionFactory->getAction('displayLogin');
+                $this->loadPage($displayLoginAction);
+            }
         }
     }
     
     private function loadPage($action) {
-        echo 'loading page';
-        include($action->pageInclude());
+        if(strlen($action->pageInclude()) === 0) {
+            header('Location: index.php');
+        } else {
+            include(__DIR__."/..".$action->pageInclude());
+        }     
+    }
+    
+    private function loadHome() {
+        if($_SESSION['permission'] == 1) {
+            include(__DIR__."/../view/admin.php");
+        } else {
+            include(__DIR__."/../view/student.php");
+        }
     }
     
 }
-
-function sexyVarDump($title, $obj) {
-        echo $title;
-        echo '<pre>';
-        var_dump($obj);
-        echo '</pre>';
-    }

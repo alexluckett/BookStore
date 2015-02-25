@@ -7,7 +7,7 @@
  */
 abstract class AuthenticatedAction implements IAction {
     
-    private $minimumPermissionLevel;
+    protected $minimumPermissionLevel;
     
     public function __construct($permissionInteger) {
         $this->minimumPermissionLevel = $permissionInteger;
@@ -19,10 +19,13 @@ abstract class AuthenticatedAction implements IAction {
     public function isLegalRequest() {
         $sessionPermission = $_SESSION['permission'];
         
+        $result = false;
+        
         if(isset($sessionPermission)) {
-            return false;
-        } else {
-            return ($sessionPermission >= $this->minimumPermissionLevel); // true if user has required permission level or above
+            echo 'permission set';
+            $result = ($sessionPermission <= $this->minimumPermissionLevel); // true if user has required permission level or above
         }
+        
+        return $result;
     }
 }

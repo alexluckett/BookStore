@@ -28,8 +28,8 @@ class ActionFactory {
         $this->actionMap = array (
             // "actionName" => class that extends IAction
             "displayLogin" => new LoadPage("/view", "login.php"),
-            "login" => new UserLogin(self::$userPermission),
-            "logout" => new UserLogout()
+            "login" => new UserLogin(),
+            "logout" => new UserLogout(self::$userPermission)
         );
     }
     
@@ -45,7 +45,7 @@ class ActionFactory {
         if(isset($action)) {
             return $action;
         } else {
-            
+            return NULL;
         }
     }
     
