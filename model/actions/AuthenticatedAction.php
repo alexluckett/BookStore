@@ -22,7 +22,6 @@ abstract class AuthenticatedAction implements IAction {
         $result = false;
         
         if(isset($sessionPermission)) {
-            echo 'permission set';
             $result = ($sessionPermission <= $this->minimumPermissionLevel); // true if user has required permission level or above
         }
         

@@ -1,49 +1,42 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Login to BookStore</title>
-        
-        <style type="text/css">
-            body {
-                font-family: sans-serif;
-                font-size: 12px;
-                text-align: center;
-            }
-            
-            #container {
-                margin: 0 auto;
-                margin-top: 10%;
-                width: 700px;
-            }
-            
-            #loginBox {
-                height: 200px;
-                width: 700px;
-                
-                margin-top: 5%;
-                display: table-cell;
-                vertical-align: middle;
-                text-align: center;
-                
-                border: 2px solid #2c92ad;
-                background: #94e2f6;
-                font-weight: bold;
-                font-size: 16px;
-            }
-        </style>
-    </head>
+<style type="text/css">
+    #container {
+        margin: 0 auto;
+        margin-top: 10%;
+        width: 20%;
+    }
     
-    <body>
-        <div id="container">
-            <div id="loginBox">
-                <form action="index.php?action=login" method="post">
-                    Username: <input type="text" name="username" /><br /><br />
-                    Password: <input type="password" name="password" /><br />
-                    <br />
-                    <button type="submit">Login</button>
-                    <button type="reset">Clear form</button>
-                </form>
-            </div>
+    /* the below styling is based on the bootstrap
+     * example at http://getbootstrap.com/examples/signin/signin.css 
+     */
+    .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+</style>
+
+<div class="page-header" style="text-align: center;">
+  <h1>Aston University: Book Store</h1>
+</div>
+
+<div id="container">
+    <form action="index.php?action=login" method="post" class="form-signin">
+        <h2 class="form-signin-heading">Please log in</h2>
+        <label for="username" class="sr-only">Username: </label>
+            <input name="username" type="text" class="form-control" placeholder="Username" required autofocus />
+        <label for="password" class="sr-only">Password: </label>
+            <input name="password" type="password" class="form-control" placeholder="Password" required />
+        <br />
+        
+        <div style="text-align: center;">
+            <button class="btn btn-lg btn-primary" style="width: 49%;" type="submit">Login</button>
+            <button class="btn btn-lg" style="width: 49%;" ttype="reset">Clear form</button>
         </div>
-    </body>
-</html>
+    </form>
+</div>

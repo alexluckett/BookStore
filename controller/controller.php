@@ -48,10 +48,12 @@ class Controller {
     }
     
     private function loadHome() {
+        include('view/header.php');
+        
         if($_SESSION['permission'] == 1) {
-            include("view/adminFunctionList.php");
+            include("view/staff/adminNavbar.php");
         } else {
-            include("view/studentFunctionList.php");
+            include("view/student/studentNavbar.php");
         }
     }
     
