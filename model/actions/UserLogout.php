@@ -13,6 +13,7 @@ class UserLogout extends AuthenticatedAction {
     
     public function execute() {
         session_destroy();
+        header('Location: index.php');
     }
 
     public function pageInclude() { }

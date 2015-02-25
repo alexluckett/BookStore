@@ -1,12 +1,12 @@
 <?php
 
-include 'model/actions/IAction.php';
-include 'model/actions/AuthenticatedAction.php';
-include 'model/actions/GuestAction.php';
+include_once 'model/actions/IAction.php';
+include_once 'model/actions/AuthenticatedAction.php';
+include_once 'model/actions/GuestAction.php';
 
-include 'model/actions/UserLogin.php';
-include 'model/actions/UserLogout.php';
-include 'model/actions/LoadPage.php';
+include_once 'model/actions/UserLogin.php';
+include_once 'model/actions/UserLogout.php';
+include_once 'model/actions/LoadPage.php';
 
 /**
  * Description of actionFactory
@@ -61,4 +61,5 @@ class ActionFactory {
         
         return self::$singletonActionFactory;
     }
+    
 }

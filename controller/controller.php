@@ -1,7 +1,7 @@
 <?php
 
-include ('dbConfig.php');
-include ('actionFactory.php');
+include_once ('dbConfig.php');
+include_once ('actionFactory.php');
 
 class Controller {
     private $actionFactory; // map of all possible actions within the program
@@ -25,10 +25,11 @@ class Controller {
                 $this->loadPage($action);
             } else {
                 // user does have not permission to run this action. log them out!
+                
+                echo("You do not have permission to run this action. Logging out.");
+                
                 $logoutAction = $this->actionFactory->getAction("logout");
                 $logoutAction->execute();
-                
-                echo("You do not have permission to run this action.");
             }
         } else {
             if(isset($_SESSION['permission']) && $_SESSION['permission'] !== 0) {                
@@ -41,18 +42,16 @@ class Controller {
     }
     
     private function loadPage($action) {
-        if(strlen($action->pageInclude()) === 0) {
-            header('Location: index.php');
-        } else {
+        if(strlen($action->pageInclude()) !== 0) {
             include(__DIR__."/..".$action->pageInclude());
         }     
     }
     
     private function loadHome() {
         if($_SESSION['permission'] == 1) {
-            include(__DIR__."/../view/admin.php");
+            include("view/adminFunctionList.php");
         } else {
-            include(__DIR__."/../view/student.php");
+            include("view/studentFunctionList.php");
         }
     }
     

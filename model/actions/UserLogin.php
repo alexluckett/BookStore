@@ -1,6 +1,6 @@
 <?php
 
-include 'model/domainmodels/userModel.php';
+include_once 'model/userModel.php';
 
 /**
  * Description of UserLogin
@@ -8,6 +8,7 @@ include 'model/domainmodels/userModel.php';
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */
 class UserLogin extends GuestAction {
+    private $enableRedirect = true;
     
     public function execute() {
         $this->authenticate($_POST['username'], $_POST['password']);
@@ -29,7 +30,11 @@ class UserLogin extends GuestAction {
                 session_destroy();
             }
             
-            echo 'log in attempt: fail. <a href="index.php">Go back?</a>';
+            $this->enableRedirect = false;
+            
+            $_REQUEST["errorTitle"] = "Invalid login details";
+            $_REQUEST["errorMessage"] = "The username or password you supplied was incorrect. Please try again.";
+            include('view/displayError.php'); // reload with new permissions
         }
     }
 
@@ -54,7 +59,13 @@ class UserLogin extends GuestAction {
     }
 
     public function pageInclude() {
-        return "/index.php";
+        $url = "/index.php";
+        
+        if($this->enableRedirect === false) {
+            $url = "";
+        }
+        
+        return $url;
     }
 
 }
