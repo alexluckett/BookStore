@@ -7,7 +7,7 @@
  */
 class DisplayError extends GuestAction {
     
-    public function execute() { }
+    public function execute($requestParams) { }
 
     public function pageInclude() {
         return "/view/displayError.php";

@@ -1,6 +1,6 @@
 <?php
 
-include_once 'model/userModel.php';
+include_once 'model/UserModel.php';
 
 /**
  * Description of UserLogin
@@ -10,8 +10,11 @@ include_once 'model/userModel.php';
 class UserLogin extends GuestAction {
     private $enableRedirect = true;
     
-    public function execute() {
-        $this->authenticate($_POST['username'], $_POST['password']);
+    public function execute($requestParams) {
+        $username = $requestParams['username'];
+        $password = $requestParams['password'];
+        
+        $this->authenticate($username, $password);
     }
     
     private function authenticate($username, $password) {

@@ -11,7 +11,7 @@ class UserLogout extends AuthenticatedAction {
         parent::__construct($permissionInteger);
     }
     
-    public function execute() {
+    public function execute($requestParams) {
         session_destroy();
         header('Location: index.php');
     }

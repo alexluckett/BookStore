@@ -13,7 +13,7 @@ abstract class AuthenticatedAction implements IAction {
         $this->minimumPermissionLevel = $permissionInteger;
     }
     
-    public abstract function execute();
+    public abstract function execute($requestParams);
     public abstract function pageInclude();
     
     public function isLegalRequest() {

@@ -7,6 +7,10 @@ include_once 'model/actions/GuestAction.php';
 include_once 'model/actions/UserLogin.php';
 include_once 'model/actions/UserLogout.php';
 include_once 'model/actions/LoadPage.php';
+include_once 'model/actions/books/BookView.php';
+include_once 'model/actions/books/AddBook.php';
+include_once 'model/actions/books/AddBookForm.php';
+include_once 'model/actions/books/DeleteBook.php';
 
 /**
  * Description of actionFactory
@@ -29,7 +33,11 @@ class ActionFactory {
             // "actionName" => class that extends IAction
             "displayLogin" => new LoadPage("/view", "login.php"),
             "login" => new UserLogin(),
-            "logout" => new UserLogout(self::$userPermission)
+            "logout" => new UserLogout(self::$userPermission),
+            "viewBooks" => new BookView(self::$userPermission),
+            "deleteBook" => new DeleteBook(self::$staffPermission),
+            "addBook" => new AddBook(self::$staffPermission),
+            "addBookForm" => new AddBookForm(self::$staffPermission)
         );
     }
     
@@ -40,12 +48,10 @@ class ActionFactory {
      * @return IAction action
      */
     public function getAction($actionName) {
-        $action = $this->actionMap[$actionName];
-        
-        if(isset($action)) {
-            return $action;
+        if(isset($this->actionMap[$actionName])) {
+            return $this->actionMap[$actionName];
         } else {
-            return NULL;
+            throw new Exception("Action does not exist in action factory.");
         }
     }
     

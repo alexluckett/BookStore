@@ -2,7 +2,7 @@
 session_start();
 ini_set('display_errors', 1);
 
-include_once('controller/controller.php');
+include_once('controller/Controller.php');
 
 $controller = new Controller();
 ?>

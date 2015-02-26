@@ -15,7 +15,7 @@ class LoadPage extends GuestAction {
         $this->filename = trim($filename);
     }
 
-    public function execute() { } // nothing to do for simply loading pages!
+    public function execute($requestParams) { } // nothing to do for simply loading pages!
     
     private function getFullPath() {
         $path = $this->filePath;

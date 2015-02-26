@@ -9,7 +9,7 @@ interface IAction {
     /**
      * Executes the business action run from the controller.
      */
-    function execute();
+    function execute($requestParams);
     
     /**
      * Returns a string representing the path of the PHP file to include after execute() is run.

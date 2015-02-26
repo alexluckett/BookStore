@@ -7,7 +7,7 @@
  */
 abstract class GuestAction implements IAction {
     
-    public abstract function execute();
+    public abstract function execute($requestParams);
     public abstract function pageInclude();
     
     public function isLegalRequest() {
