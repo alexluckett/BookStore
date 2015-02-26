@@ -11,6 +11,7 @@ class UserModel {
     private $password;
     private $permission;
     private $permissionString;
+    private $accountBalance;
     
     /**
      * Gets a property from the user model.

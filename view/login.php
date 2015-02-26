@@ -16,7 +16,7 @@
 </style>
 
 <div class="page-header" style="text-align: center;">
-  <h1>Aston University: Book Store</h1>
+    <h1>Aston University: Book Store</h1>
 </div>
 
 <div id="container">

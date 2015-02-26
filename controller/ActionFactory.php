@@ -4,8 +4,12 @@ include_once 'model/actions/IAction.php';
 include_once 'model/actions/AuthenticatedAction.php';
 include_once 'model/actions/GuestAction.php';
 
+include_once 'model/dbaccess/UserDAO.php';
+include_once 'model/dbaccess/BasketDAO.php';
+
 include_once 'model/actions/UserLogin.php';
 include_once 'model/actions/UserLogout.php';
+include_once 'model/actions/ViewUsers.php';
 include_once 'model/actions/LoadPage.php';
 include_once 'model/actions/books/BookView.php';
 include_once 'model/actions/books/AddBook.php';
@@ -13,6 +17,7 @@ include_once 'model/actions/books/AddBookForm.php';
 include_once 'model/actions/books/DeleteBook.php';
 include_once 'model/actions/basket/AddToBasket.php';
 include_once 'model/actions/basket/ViewBasket.php';
+include_once 'model/actions/basket/ViewBasketStaff.php';
 
 /**
  * Description of actionFactory
@@ -41,7 +46,9 @@ class ActionFactory {
             "addBook" => new AddBook(self::$staffPermission),
             "addBookForm" => new AddBookForm(self::$staffPermission),
             "addToBasket" => new AddToBasket(self::$userPermission),
-            "viewBasket" => new ViewBasket(self::$userPermission)
+            "viewBasket" => new ViewBasket(self::$userPermission),
+            "viewUserBasket" => new ViewBasketStaff(self::$staffPermission),
+            "viewUsers" => new ViewUsers(self::$staffPermission)
         );
     }
     

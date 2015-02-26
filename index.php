@@ -39,8 +39,9 @@ $controller = new Controller();
                 <?php if (isset($_SESSION['permission'])) {
                     if ($_SESSION['permission'] == 1) {
                         ?>
-                        <li role="presentation" class="active"><a href="?action=viewBooks">View books</a></li>
+                        <li role="presentation" <?php //class="active" ?>><a href="?action=viewBooks">View books</a></li>
                         <li role="presentation"><a href="?action=addBookForm">Add book</a></li>
+                        <li role="presentation"><a href="?action=viewUsers">Manage users</a></li>
                     <?php } else { ?>
                         <li role="presentation" class="active"><a href="?action=viewBooks">View books</a></li>
                         <li role="presentation"><a href="?action=viewBasket">View basket</a></li>
@@ -50,6 +51,7 @@ $controller = new Controller();
                     <b>Signed in as <?php echo $_SESSION['username'] ?></b>. Account type: <?php echo $_SESSION['permissionString']; ?>. <a href="?action=logout">Sign out?</a>
                 </div>
                 <?php }  else { ?>
+                    <li role="presentation"><a href="?action=info">Information</a></li>
                 </ul>
                 <div class="navbar-right">
                     <a href="index.php"><button type="button" class="btn btn-default navbar-btn">Sign in</button></a>
