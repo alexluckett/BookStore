@@ -33,6 +33,7 @@ class Controller {
                 $this->loadPage($displayLoginAction);
             }
         } catch (Exception $ex) {
+            var_dump($ex);
             echo("Specified action encountered a problem or does not exist. <a href='index.php'>Please click here to go back</a>.");
         }
         

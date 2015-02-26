@@ -24,7 +24,7 @@ $controller = new Controller();
                 padding-top: 70px;
             }
             .container {
-                width: 50%;
+                width: 60%;
             }
         </style>
     </head>
@@ -43,6 +43,7 @@ $controller = new Controller();
                         <li role="presentation"><a href="?action=addBookForm">Add book</a></li>
                     <?php } else { ?>
                         <li role="presentation" class="active"><a href="?action=viewBooks">View books</a></li>
+                        <li role="presentation"><a href="?action=viewBasket">View basket</a></li>
                 <?php } ?>
                 </ul>
                 <div class="navbar-text navbar-right">

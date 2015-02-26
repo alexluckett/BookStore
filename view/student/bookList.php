@@ -38,6 +38,10 @@ foreach ($books as $book) {
                     <p><a href="?action=editBookForm&isbn=<?php echo $book->isbn; ?>">Edit book</a></p>
                     <p><a href="?action=deleteBook&isbn=<?php echo $book->isbn; ?>">Delete book</a></p>
                 </div>
+            <?php } else { ?>
+                <div>
+                    <p><a href="?action=addToBasket&isbn=<?php echo $book->isbn; ?>">Add to basket</a></p>
+                </div>
             <?php } ?>
         </div>
     </div>

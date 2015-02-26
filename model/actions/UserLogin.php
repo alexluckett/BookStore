@@ -23,6 +23,7 @@ class UserLogin extends GuestAction {
         $user = $this->getUserFromDatabase($username, $passwordMd5);
 
         if (isset($user) && !is_bool($user)) {
+            $_SESSION['userId'] = $user->userId;
             $_SESSION['username'] = $user->username;
             $_SESSION['permission'] = $user->permission;
             $_SESSION['permissionString'] = $user->permissionString;

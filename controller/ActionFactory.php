@@ -11,6 +11,8 @@ include_once 'model/actions/books/BookView.php';
 include_once 'model/actions/books/AddBook.php';
 include_once 'model/actions/books/AddBookForm.php';
 include_once 'model/actions/books/DeleteBook.php';
+include_once 'model/actions/basket/AddToBasket.php';
+include_once 'model/actions/basket/ViewBasket.php';
 
 /**
  * Description of actionFactory
@@ -37,7 +39,9 @@ class ActionFactory {
             "viewBooks" => new BookView(self::$userPermission),
             "deleteBook" => new DeleteBook(self::$staffPermission),
             "addBook" => new AddBook(self::$staffPermission),
-            "addBookForm" => new AddBookForm(self::$staffPermission)
+            "addBookForm" => new AddBookForm(self::$staffPermission),
+            "addToBasket" => new AddToBasket(self::$userPermission),
+            "viewBasket" => new ViewBasket(self::$userPermission)
         );
     }
     
