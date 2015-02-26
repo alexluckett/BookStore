@@ -25,8 +25,9 @@ class Controller {
                 $action = $this->actionFactory->getAction($actionName);
 
                 $this->exeucteAction($action, $executeParams);
-            } else if(isset($_SESSION['permission']) && $_SESSION['permission'] !== 0) {                
-                $this->loadHome(); // user has logged in so display home page
+            } else if(isset($_SESSION['permission']) && $_SESSION['permission'] !== 0) {  
+                $defaultAction = $this->actionFactory->getAction("viewBooks");
+                $this->exeucteAction($defaultAction, $executeParams); // user has logged in so display home page
             } else {
                 $displayLoginAction = $this->actionFactory->getAction('displayLogin'); // not logged in. display login screen.
                 $this->loadPage($displayLoginAction);
@@ -55,14 +56,8 @@ class Controller {
         }     
     }
     
-    private function loadHome() {
-        include('view/header.php');
-        
-        if($_SESSION['permission'] == 1) {
-            include("view/staff/adminNavbar.php");
-        } else {
-            include("view/student/studentNavbar.php");
-        }
+    private function loadHome($action, $params) {
+        $action->execute($param);
     }
     
 }

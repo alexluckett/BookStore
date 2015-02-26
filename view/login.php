@@ -1,10 +1,4 @@
-<style type="text/css">
-    #container {
-        margin: 0 auto;
-        margin-top: 5%;
-        width: 20%;
-    }
-    
+<style type="text/css">    
     /* the below styling is based on the bootstrap
      * example at http://getbootstrap.com/examples/signin/signin.css 
      */
@@ -52,7 +46,7 @@
         
         <div style="text-align: center;">
             <button class="btn btn-lg btn-primary" style="width: 49%;" type="submit">Login</button>
-            <button class="btn btn-lg" style="width: 49%;" ttype="reset">Clear form</button>
+            <button class="btn btn-lg" style="width: 49%;" type="reset">Clear form</button>
         </div>
     </form>
 </div>

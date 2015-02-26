@@ -17,4 +17,4 @@
             <button class="btn btn-lg btn-primary" style="width: 49%;" type="submit">Add book</button>
             <button class="btn btn-lg" style="width: 49%;" ttype="reset">Clear</button>
         </div>
-    </form>
+</form>

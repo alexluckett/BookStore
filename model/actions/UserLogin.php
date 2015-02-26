@@ -37,7 +37,6 @@ class UserLogin extends GuestAction {
             
             $_REQUEST["errorTitle"] = "Invalid login details";
             $_REQUEST["errorMessage"] = "The username or password you supplied was incorrect. Please try again.";
-            include('view/login.php'); // reload with new permissions
         }
     }
 
@@ -65,7 +64,7 @@ class UserLogin extends GuestAction {
         $url = "/index.php";
         
         if($this->enableRedirect === false) {
-            $url = "";
+            $url = '/view/login.php';
         }
         
         return $url;
