@@ -33,7 +33,7 @@ class Controller {
                 $this->loadPage($displayLoginAction);
             }
         } catch (Exception $ex) {
-            var_dump($ex);
+            //var_dump($ex);
             echo("Specified action encountered a problem or does not exist. <a href='index.php'>Please click here to go back</a>.");
         }
         
@@ -44,10 +44,7 @@ class Controller {
             $action->execute($executeParams);
             $this->loadPage($action);
         } else {
-            echo("You do not have permission to run this action. Logging out.");
-
-            $logoutAction = $this->actionFactory->getAction("logout");
-            $logoutAction->execute($executeParams);
+            echo("You do not have permission to run this action.");
         }
     }
 
