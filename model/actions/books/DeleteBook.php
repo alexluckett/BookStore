@@ -33,10 +33,15 @@ class DeleteBook extends AuthenticatedAction {
         $db = DatabaseConnection::getDatabase();
 
         $query = "DELETE from books WHERE books.isbn = '".$isbn."'";
-
-        $statement = $db->prepare($query); // protect against SQL injection
+        $query2 = "DELETE from userBasket WHERE isbn = '".$isbn."'";
         
-        return $statement->execute();
+        $statement = $db->prepare($query); // protect against SQL injection
+        $statement2 = $db->prepare($query2);
+        
+        $success = $statement->execute();
+        $success2 = $statement2->execute();
+        
+        return $success && $success2;
     }
     
 }
