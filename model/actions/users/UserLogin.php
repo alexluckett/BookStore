@@ -20,7 +20,7 @@ class UserLogin extends GuestAction {
     private function authenticate($username, $password) {
         $passwordMd5 = md5($password);
 
-        $user = $this->getUserFromDatabase($username, $passwordMd5);
+        $user = UserDAO::validateUserLogin($username, $passwordMd5);
 
         if (isset($user) && !is_bool($user)) {
             $_SESSION['userId'] = $user->userId;
@@ -39,26 +39,6 @@ class UserLogin extends GuestAction {
             $_REQUEST["errorTitle"] = "Invalid login details";
             $_REQUEST["errorMessage"] = "The username or password you supplied was incorrect. Please try again.";
         }
-    }
-
-    /**
-     * Returns a user from the database, complete with their permissionString.
-     * 
-     * @param String $username
-     * @param String $passwordMd5 MD5 hash of password
-     * @return UserModel
-     */
-    private function getUserFromDatabase($username, $passwordMd5) {
-        $db = DatabaseConnection::getDatabase();
-
-        $query = "SELECT users.*, userPermissions.permissionString from users, userPermissions "
-                . "WHERE users.username = '$username' and users.password = '$passwordMd5' and users.permission = userPermissions.permissionId";
-
-        $statement = $db->prepare($query); // protect against SQL injection
-        $statement->setFetchMode(PDO::FETCH_CLASS, 'UserModel');
-        $statement->execute();
-        $user = $statement->fetch();
-        return $user; // need one user returned, else invalid login details
     }
 
     public function pageInclude() {

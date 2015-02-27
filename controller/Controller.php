@@ -21,26 +21,25 @@ class Controller {
         unset($executeParams['action']);
         
         try {
-            if($actionName !== NULL) {
-                $action = $this->actionFactory->getAction($actionName);
-
-                $this->exeucteAction($action, $executeParams);
-            } else if(isset($_SESSION['permission']) && $_SESSION['permission'] !== 0) {  
-                $defaultAction = $this->actionFactory->getAction("viewBooks");
-                $this->exeucteAction($defaultAction, $executeParams); // user has logged in so display home page
-            } else {
-                $displayLoginAction = $this->actionFactory->getAction('displayLogin'); // not logged in. display login screen.
-                $this->loadPage($displayLoginAction);
+            $finalAction = $this->actionFactory->getAction('displayLogin'); // default not logged in. display login screen.
+            
+            if($actionName !== NULL) { // user has requested an action
+                $finalAction = $this->actionFactory->getAction($actionName);
+            } else if(isset($_SESSION['permission']) && $_SESSION['permission'] !== 0) {  // user is logged in but no action requested
+                $finalAction = $this->actionFactory->getAction("viewBooks"); // user has logged in so display home page
             }
+            
+            $this->exeucteAction($finalAction, $executeParams);
         } catch (Exception $ex) {
-            //var_dump($ex);
-            echo("Specified action encountered a problem or does not exist. <a href='index.php'>Please click here to go back</a>.");
+            var_dump($ex);
+            echo("Specified action encountered a problem or does not exist."
+                    . "a href='index.php'>Please click here to go back</a>.");
         }
         
     }
     
     private function exeucteAction($action, $executeParams) {
-        if ($action->isLegalRequest()) {
+        if ($action->isLegalRequest()) { // checks if the user has permission to run the action
             $action->execute($executeParams);
             $this->loadPage($action);
         } else {
@@ -52,10 +51,6 @@ class Controller {
         if(strlen($action->pageInclude()) !== 0) {
             include(__DIR__."/..".$action->pageInclude());
         }     
-    }
-    
-    private function loadHome($action, $params) {
-        $action->execute($param);
     }
     
 }

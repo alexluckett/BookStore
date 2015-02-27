@@ -16,27 +16,18 @@ class AddToBasket extends AuthenticatedAction {
         $user = $_SESSION['userId'];
         
         try {
-            $this->addToBasketInDatabase($user, $isbn);
+            BasketDAO::addToBasketInDatabase($user, $isbn);
             $_REQUEST['alertType'] = 'success';
             $_REQUEST['message'] = "Book (".$isbn.") successfully added to basket";
         } catch (Exception $ex) {
             $_REQUEST['message'] = "Book (".$isbn.") is already in your basket.";
         }
         
-        $_REQUEST['books'] = BookView::getBooksFromDatabase();
+        $_REQUEST['books'] = BookDAO::getBooksFromDatabase();
     }
 
     public function pageInclude() {
         return "/view/student/bookList.php";
-    }
-    
-    private function addToBasketInDatabase($userId, $isbn) {
-        $db = DatabaseConnection::getDatabase();
-
-        $query = "INSERT into userBasket VALUES(".$userId.",".$isbn.")";
-        $statement = $db->prepare($query); // protect against SQL injection
-        
-        return $statement->execute();
     }
 
 }

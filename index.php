@@ -32,18 +32,17 @@ $controller = new Controller();
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Book Store</a>
+                    <a class="navbar-brand" href="index.php">Book Store</a>
                 </div>
 
                 <ul class="nav navbar-nav" id="navbar">
                 <?php if (isset($_SESSION['permission'])) {
                     if ($_SESSION['permission'] == 1) {
                         ?>
-                        <li role="presentation" <?php //class="active" ?>><a href="?action=viewBooks">View books</a></li>
-                        <li role="presentation"><a href="?action=addBookForm">Add book</a></li>
+                        <li role="presentation"><a href="?action=viewBooks">Manage books</a></li>
                         <li role="presentation"><a href="?action=viewUsers">Manage users</a></li>
                     <?php } else { ?>
-                        <li role="presentation" class="active"><a href="?action=viewBooks">View books</a></li>
+                        <li role="presentation"><a href="?action=viewBooks">View books</a></li>
                         <li role="presentation"><a href="?action=viewBasket">View basket</a></li>
                 <?php } ?>
                 </ul>

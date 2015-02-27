@@ -6,10 +6,11 @@ include_once 'model/actions/GuestAction.php';
 
 include_once 'model/dbaccess/UserDAO.php';
 include_once 'model/dbaccess/BasketDAO.php';
+include_once 'model/dbaccess/BookDAO.php';
 
-include_once 'model/actions/UserLogin.php';
-include_once 'model/actions/UserLogout.php';
-include_once 'model/actions/ViewUsers.php';
+include_once 'model/actions/users/UserLogin.php';
+include_once 'model/actions/users/UserLogout.php';
+include_once 'model/actions/users/ViewUsers.php';
 include_once 'model/actions/LoadPage.php';
 include_once 'model/actions/books/BookView.php';
 include_once 'model/actions/books/AddBook.php';
@@ -39,6 +40,7 @@ class ActionFactory {
         $this->actionMap = array (
             // "actionName" => class that extends IAction
             "displayLogin" => new LoadPage("/view", "login.php"),
+            "info" => new LoadPage("/view", "info.php"),
             "login" => new UserLogin(),
             "logout" => new UserLogout(self::$userPermission),
             "viewBooks" => new BookView(self::$userPermission),

@@ -6,6 +6,15 @@
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */
 class BasketDAO {
+    
+    public static function addToBasketInDatabase($userId, $isbn) {
+        $db = DatabaseConnection::getDatabase();
+
+        $query = "INSERT into userBasket VALUES(".$userId.",".$isbn.")";
+        $statement = $db->prepare($query); // protect against SQL injection
+        
+        return $statement->execute();
+    }
    
     public static function getBooksFromBasket($userId) {
         $db = DatabaseConnection::getDatabase();

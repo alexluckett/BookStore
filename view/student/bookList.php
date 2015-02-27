@@ -20,9 +20,17 @@ if (strlen($message) != 0) {
     <?php
 }
 $books = $_REQUEST["books"];
-foreach ($books as $book) {
+if($_SESSION['permission'] == 1) {
+?>
+<div style="display: inline-block; width: 100%;">
+    <div class="pull-right">
+        <a href="?action=addBookForm">
+            <button type="button" style="margin-left: 5px;" class="btn btn-success">Add new book</button>
+        </a>
+    </div>
+</div>
+<?php } foreach ($books as $book) {
     ?>
-
     <div class="panel panel-default" id="book<?php echo $book->isbn; ?>">
         <div class="panel-heading">
             <h3 class="panel-title"><?php echo $book->title; ?></h3>

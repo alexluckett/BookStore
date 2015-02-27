@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of LoadPage
+ * Used when a static php file needs to be displayed.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

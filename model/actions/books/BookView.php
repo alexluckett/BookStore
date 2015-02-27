@@ -14,7 +14,7 @@ class BookView extends AuthenticatedAction {
     }
 
     public function execute($requestParams) {
-        $books = $this->getBooksFromDatabase();
+        $books = BookDAO::getBooksFromDatabase();
         
         $_REQUEST["books"] = $books;
     }
@@ -24,19 +24,6 @@ class BookView extends AuthenticatedAction {
      */
     public function pageInclude() {
         return "/view/student/bookList.php";
-    }
-    
-    public static function getBooksFromDatabase() {
-        $db = DatabaseConnection::getDatabase();
-
-        $query = "SELECT * from books";
-
-        $statement = $db->prepare($query); // protect against SQL injection
-        $statement->setFetchMode(PDO::FETCH_CLASS, 'BookModel');
-        $statement->execute();
-        $books = $statement->fetchAll();
-        
-        return $books; // need one user returned, else invalid login details
     }
 
 }

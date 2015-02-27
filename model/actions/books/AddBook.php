@@ -9,7 +9,7 @@ class AddBook extends AuthenticatedAction {
     
     public function execute($requestParams) {$bookModel = $this->constructBook($requestParams);
         
-        $success = $this->addBookToDatabase($bookModel);
+        $success = BookDAO::addBookToDatabase($bookModel);
         
         if($success) {
             $_REQUEST['message'] = 'Book: '.$bookModel->isbn.' added';
@@ -18,7 +18,7 @@ class AddBook extends AuthenticatedAction {
             $_REQUEST['message'] = 'Unable to add book.';
         }
         
-        $_REQUEST['books'] = BookView::getBooksFromDatabase();
+        $_REQUEST['books'] = BookDAO::getBooksFromDatabase();
     }
 
     public function pageInclude() {
@@ -35,23 +35,4 @@ class AddBook extends AuthenticatedAction {
         return $book;
     }
     
-    private function addBookToDatabase($bookModel) {
-        $db = DatabaseConnection::getDatabase();
-
-        $query = "INSERT INTO books VALUES ("; // construct statment, append all values from book model
-        {
-            $query.= "'".$bookModel->isbn."',";
-            $query.= "'".$bookModel->title."',";
-            $query.= "'".$bookModel->author."',";
-            $query.= $bookModel->price.",";
-            $query.= $bookModel->quantity;
-        }
-        $query.= ")";
-
-        $statement = $db->prepare($query); // protect against SQL injection
-        
-        return $statement->execute(); // boolean
-    }
-
-//put your code here
 }
