@@ -35,21 +35,19 @@ class Controller {
         } catch (Exception $ex) {
             if($this->debugEnabled) { var_dump($ex); }
             
-            $_REQUEST['errorTitle'] = "Specified action encountered a problem or does not exist.";
-            $_REQUEST['errorMessage'] = $ex->getMessage()." <a href='index.php'>Please click here to go back</a>.";
+            $this->displayError("Specified action encountered a problem or does not exist.", 
+                                $ex->getMessage()." <a href='index.php'>Please click here to go back</a>.");
             
-            $errorAction = $this->actionFactory->getAction('displayError');
-            $this->loadPage($errorAction);
         }
         
     }
     
     private function exeucteAction($action, $executeParams) {
         if ($action->isLegalRequest()) { // checks if the user has permission to run the action
-            $action->execute($executeParams);
-            $this->loadPage($action);
+            $action->execute($executeParams); // run pre-requisites before page shown
+            $this->loadPage($action); // show page
         } else {
-            echo("You do not have permission to run this action.");
+            $this->displayError("Unable to load page", "You do not have permission to run this action.");
         }
     }
 
@@ -57,6 +55,16 @@ class Controller {
         if(strlen($action->pageInclude()) !== 0) {
             include( __DIR__."/..".$action->pageInclude());
         }     
+    }
+    
+    private function displayError($errorTitle, $errorMessage) {
+        /* todo refactor this into new action */
+        
+        $_REQUEST['errorTitle'] = $errorTitle;
+        $_REQUEST['errorMessage'] = $errorMessage;
+            
+        $errorAction = $this->actionFactory->getAction('displayError');
+        $this->loadPage($errorAction);
     }
     
 }
