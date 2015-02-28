@@ -53,4 +53,13 @@ class BookDAO {
         return $books; // need one user returned, else invalid login details
     }
     
+    public static function decrementQuantity($isbn) {
+        $db = DatabaseConnection::getDatabase();
+
+        $query = "UPDATE books SET quantity = quantity - 1 WHERE isbn = $isbn and quantity > 0";
+
+        $statement = $db->prepare($query); // protect against SQL injection
+        return $statement->execute();
+    }
+    
 }

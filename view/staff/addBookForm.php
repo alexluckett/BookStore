@@ -1,6 +1,6 @@
 <form action="index.php?action=addBook" method="post" class="form-signin">
         
-        <h2 class="form-signin-heading">Add book into system</h2>
+        <h2 class="form-signin-heading">Add book</h2>
         <label for="isbn" class="sr-only">ISBN: </label>
             <input name="isbn" type="text" class="form-control" placeholder="ISBN(13)" required autofocus />
         <label for="title" class="sr-only">Title: </label>

@@ -30,4 +30,13 @@ class BasketDAO {
         
         return $bookList; 
     }
+    
+    public static function removeFromBasket($userId, $isbn) {
+        $db = DatabaseConnection::getDatabase();
+
+        $query = "DELETE FROM userBasket WHERE userId = '$userId' AND isbn = $isbn;";
+
+        $statement = $db->prepare($query); // protect against SQL injection
+        return $statement->execute();
+    }
 }

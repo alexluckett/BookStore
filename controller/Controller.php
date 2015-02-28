@@ -31,9 +31,9 @@ class Controller {
             
             $this->exeucteAction($finalAction, $executeParams);
         } catch (Exception $ex) {
-            var_dump($ex);
+            //var_dump($ex);
             echo("Specified action encountered a problem or does not exist."
-                    . "a href='index.php'>Please click here to go back</a>.");
+                    . "<a href='index.php'>Please click here to go back</a>.");
         }
         
     }

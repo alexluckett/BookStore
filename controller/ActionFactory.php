@@ -17,6 +17,7 @@ include_once 'model/actions/books/AddBook.php';
 include_once 'model/actions/books/AddBookForm.php';
 include_once 'model/actions/books/DeleteBook.php';
 include_once 'model/actions/basket/AddToBasket.php';
+include_once 'model/actions/basket/ProcessBasket.php';
 include_once 'model/actions/basket/ViewBasket.php';
 include_once 'model/actions/basket/ViewBasketStaff.php';
 
@@ -50,6 +51,7 @@ class ActionFactory {
             "addToBasket" => new AddToBasket(self::$userPermission),
             "viewBasket" => new ViewBasket(self::$userPermission),
             "viewUserBasket" => new ViewBasketStaff(self::$staffPermission),
+            "processBasket" => new ProcessBasket(self::$staffPermission),
             "viewUsers" => new ViewUsers(self::$staffPermission)
         );
     }

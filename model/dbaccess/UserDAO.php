@@ -14,10 +14,9 @@ class UserDAO {
 
         $statement = $db->prepare($query); // protect against SQL injection
         $statement->setFetchMode(PDO::FETCH_CLASS, 'UserModel');
-        $statement->execute();
-        $user = $statement->fetch();
+        $result = $statement->execute();
         
-        return $user;
+        return $result;
     }
     
     public static function validateUserLogin($username, $passwordMd5) {
