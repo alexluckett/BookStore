@@ -21,9 +21,7 @@ if (strlen($message) != 0) {
 }
 $books = $_REQUEST["books"];
 $categories = $_REQUEST["categories"];
-
-if ($_SESSION['permission'] == 1) {
-    ?>
+?>
     <script type="text/javascript">
         function changeCategory(categoryId) {
             window.location = "?action=viewBooks&categoryId=" + categoryId;
@@ -45,13 +43,14 @@ if ($_SESSION['permission'] == 1) {
                     <?php } ?>
                 </select>
             </div>
-
+<?php if ($_SESSION['permission'] == 1) { ?>
             <a href="?action=addBookForm">
                 <button type="button" style="margin-left: 5px;" class="btn btn-success">Add new book</button>
             </a>
+<?php } ?>
         </div>
     </div>
-<?php } foreach ($books as $book) {
+<?php foreach ($books as $book) {
     ?>
     <div class="panel panel-default" id="book<?php echo $book->isbn; ?>">
         <div class="panel-heading">
