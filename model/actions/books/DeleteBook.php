@@ -26,7 +26,7 @@ class DeleteBook extends AuthenticatedAction {
     }
 
     public function pageInclude() {
-        return "/view/student/bookList.php";
+        return "/view/student/viewBookList.php";
     }
     
 }

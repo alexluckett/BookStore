@@ -38,42 +38,44 @@ include_once 'model/actions/basket/ViewBasketStaff.php';
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */
 class ActionFactory {
+
     private $actionMap;
-    
     private static $singletonActionFactory;
-    
     private static $staffPermission = 1;
     private static $userPermission = 2;
-    
+
     /**
      * Constructs a map of action names to class responsible for execution.
      */
     private function __construct() {
-        $this->actionMap = array (
-            // "actionName" => class that extends IAction
-            "welcomeScreen" => new LoadPage("/view", "welcomeScreen.php"),
-            "displayError" => new LoadPage("/view", "displayError.php"),
-            "displayLogin" => new LoadPage("/view", "login.php"), // display login page
-            "displayRegister" => new LoadPage("/view", "register.php"), // display account registration page
-            "info" => new LoadPage("/view", "info.php"), // display information page
+        
+        $this->actionMap = array(
+            /* viewable */
+            "viewWelcome" => new LoadPage("/view", "welcomeScreen.php"),
+            "viewError" => new LoadPage("/view", "displayError.php"),
+            "viewLogin" => new LoadPage("/view", "login.php"), // display login page
+            "viewRegister" => new LoadPage("/view", "register.php"), // display account registration page
+            "viewInfo" => new LoadPage("/view", "info.php"), // display information page
+            "viewEditUser" => new AddUserBalancePage(self::$staffPermission), // view edit user page
+            "viewAccountDetails" => new ViewAccountDetails(self::$userPermission), // view account details page
+            "viewBooks" => new BookView(self::$userPermission), // view a list of books
+            "viewAddBook" => new AddBookForm(self::$staffPermission), // display page to add book
+            "viewBasket" => new ViewBasket(self::$userPermission), // view items in basket
+            "viewUserBasket" => new ViewBasketStaff(self::$staffPermission), // view user's basket (from outside account)
+            "viewUsers" => new ViewUsers(self::$staffPermission), // view a list of users
+            
+            /* functions */
             "register" => new CreateAccount(), // log in to system
             "login" => new UserLogin(), // log in to system
             "logout" => new UserLogout(self::$userPermission), // log out from system
-            "accountDetails" => new ViewAccountDetails(self::$userPermission), // log out from system
-            "editUserPage" => new AddUserBalancePage(self::$staffPermission), // log out from system
-            "addBalanceAmount" => new AddUserBalance(self::$staffPermission), // log out from system
-            "viewBooks" => new BookView(self::$userPermission), // view a list of books
+            "addBalanceAmount" => new AddUserBalance(self::$staffPermission), // add balance to user
             "deleteBook" => new DeleteBook(self::$staffPermission), // delete a book
             "addBook" => new AddBook(self::$staffPermission), // add a book
-            "addBookForm" => new AddBookForm(self::$staffPermission), // display page to add book
             "addToBasket" => new AddToBasket(self::$userPermission), // add a book to basket
-            "viewBasket" => new ViewBasket(self::$userPermission), // view items in basket
-            "viewUserBasket" => new ViewBasketStaff(self::$staffPermission), // view user's basket (from outside account)
-            "processBasket" => new ProcessBasket(self::$staffPermission), // process a user's basket
-            "viewUsers" => new ViewUsers(self::$staffPermission) // view a list of users
+            "processBasket" => new ProcessBasket(self::$staffPermission) // process a user's basket
         );
     }
-    
+
     /**
      * Returns an action responsible for execution of a certain action (identified by a name of type string);
      * 
@@ -81,24 +83,24 @@ class ActionFactory {
      * @return IAction action
      */
     public function getAction($actionName) {
-        if(isset($this->actionMap[$actionName])) {
+        if (isset($this->actionMap[$actionName])) {
             return $this->actionMap[$actionName];
         } else {
             throw new Exception("The action you are trying to run does not exist.");
         }
     }
-    
+
     /**
      * Returns the singleton instance of the action factory.
      * 
      * @return type
      */
     public static function getInstance() {
-        if(!isset(self::$singletonActionFactory)) {
+        if (!isset(self::$singletonActionFactory)) {
             self::$singletonActionFactory = new ActionFactory();
         }
-        
+
         return self::$singletonActionFactory;
     }
-    
+
 }

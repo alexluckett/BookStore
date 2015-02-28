@@ -31,7 +31,7 @@ class ProcessBasket extends AuthenticatedAction {
     }
 
     public function pageInclude() {
-        return "/view/staff/orderConfirmation.php";
+        return "/view/staff/viewOrderConfirmation.php";
     }
 
     private function processItem($item, $user) {

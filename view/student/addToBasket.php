@@ -1,3 +1,3 @@
 <?php
 
-include ('bookList.php');
+include ('viewBookList.php');

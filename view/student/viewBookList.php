@@ -44,7 +44,7 @@ $categories = $_REQUEST["categories"];
                 </select>
             </div>
 <?php if ($_SESSION['permission'] == 1) { ?>
-            <a href="?action=addBookForm">
+            <a href="?action=viewAddBook">
                 <button type="button" style="margin-left: 5px;" class="btn btn-success">Add new book</button>
             </a>
 <?php } ?>
@@ -64,7 +64,7 @@ $categories = $_REQUEST["categories"];
 
             <?php if ($_SESSION['permission'] == 1) { ?>
                 <div>
-                    <p><a href="?action=editBookForm&isbn=<?php echo $book->isbn; ?>">Edit book</a></p>
+                    <p><a href="?action=viewEditBook&isbn=<?php echo $book->isbn; ?>">Edit book</a></p>
                     <p><a href="?action=deleteBook&isbn=<?php echo $book->isbn; ?>">Delete book</a></p>
                 </div>
             <?php } else { ?>

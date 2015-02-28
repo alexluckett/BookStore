@@ -46,16 +46,16 @@ $controller = new Controller();
                 <?php } ?>
                 </ul>
                 <div class="navbar-text navbar-right">
-                    <a href="?action=accountDetails"><b>Signed in as <?php echo $_SESSION['username'] ?></b></a>. <a href="?action=logout">Sign out?</a>
+                    <a href="?action=viewAccountDetails"><b>Signed in as <?php echo $_SESSION['username'] ?></b></a>. <a href="?action=logout">Sign out?</a>
                 </div>
                 <?php } else { ?>
                 </ul>
                 
                 <div class="navbar-right">
                     <ul class="nav navbar-nav" id="navbar">
-                    <li role="presentation"><a href="?action=displayRegister">Register</a></li>
+                    <li role="presentation"><a href="?action=viewRegister">Register</a></li>
                     </ul>
-                    <a href="?action=displayLogin"><button type="button" class="btn btn-default navbar-btn">Sign in</button></a>
+                    <a href="?action=viewLogin"><button type="button" class="btn btn-default navbar-btn">Sign in</button></a>
                 </div>
                 
                 <?php } ?>
@@ -63,7 +63,7 @@ $controller = new Controller();
         </nav>
         
         <div class="container">
-        <?php $controller->invoke($_REQUEST); ?>
+        <?php $controller->invoke($_REQUEST); // forward requests to the controller, display output ?>
         </div>
     </body>
 </html>

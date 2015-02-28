@@ -46,7 +46,7 @@
         
         <div style="text-align: center;">
             <button class="btn btn-lg btn-primary" style="width: 49%;" type="submit">Login</button>
-            <button class="btn btn-lg" style="width: 49%;" type="reset">Clear form</button>
+            <button class="btn btn-lg" style="width: 49%;" type="reset">Clear</button>
         </div>
     </form>
 </div>

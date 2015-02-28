@@ -39,7 +39,7 @@ class BookView extends AuthenticatedAction {
      * @return string
      */
     public function pageInclude() {
-        return "/view/student/bookList.php";
+        return "/view/student/viewBookList.php";
     }
 
 }

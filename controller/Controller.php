@@ -23,7 +23,7 @@ class Controller {
         unset($executeParams['action']);
         
         try {
-            $finalAction = $this->actionFactory->getAction('welcomeScreen'); // default not logged in. display welcome screen.
+            $finalAction = $this->actionFactory->getAction('viewWelcome'); // default not logged in. display welcome screen.
             
             if($actionName !== NULL) { // user has requested an action
                 $finalAction = $this->actionFactory->getAction($actionName);
@@ -66,7 +66,7 @@ class Controller {
         $_REQUEST['errorTitle'] = $errorTitle;
         $_REQUEST['errorMessage'] = $errorMessage;
             
-        $errorAction = $this->actionFactory->getAction('displayError');
+        $errorAction = $this->actionFactory->getAction('viewError');
         $this->loadPage($errorAction);
     }
     

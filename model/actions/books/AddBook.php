@@ -20,10 +20,11 @@ class AddBook extends AuthenticatedAction {
         }
         
         $_REQUEST['books'] = BookDAO::getBooksFromDatabase();
+        $_REQUEST["categories"] = BookDAO::getBookCategories();
     }
 
     public function pageInclude() {
-        return "/view/student/bookList.php";
+        return "/view/student/viewBookList.php";
     }
     
     private function constructBook($requestParams) {

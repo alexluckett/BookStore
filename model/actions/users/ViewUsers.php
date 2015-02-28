@@ -12,7 +12,7 @@ class ViewUsers extends AuthenticatedAction {
     }
 
     public function pageInclude() {
-        return "/view/staff/userList.php";
+        return "/view/staff/viewUserList.php";
     }
 
 }
