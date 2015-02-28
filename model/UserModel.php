@@ -5,36 +5,11 @@
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */
-class UserModel {
-    private $userId;
-    private $username;
-    private $password;
-    private $permission;
-    private $permissionString;
-    private $accountBalance;
-    
-    /**
-     * Gets a property from the user model.
-     * 
-     * @param type $property
-     * @return type
-     */
-    public function __get($field) {
-        if(property_exists($this, $field)) {
-            return $this->$field;
-        }
-    }
-    
-    /**
-     * Gets a property from the user model.
-     * 
-     * @param type $property
-     * @return type
-     */
-    public function __set($field, $value) {
-        if(property_exists($this, $field)) {
-            $this->$field = $value;
-        }
-    }
-    
+class UserModel extends DomainModel {
+    protected $userId;
+    protected $username;
+    protected $password;
+    protected $permission;
+    protected $permissionString;
+    protected $accountBalance;    
 }
