@@ -42,6 +42,7 @@ class ActionFactory {
     private function __construct() {
         $this->actionMap = array (
             // "actionName" => class that extends IAction
+            "welcomeScreen" => new LoadPage("/view", "welcomeScreen.php"),
             "displayLogin" => new LoadPage("/view", "login.php"), // display login page
             "displayRegister" => new LoadPage("/view", "register.php"), // display account registration page
             "info" => new LoadPage("/view", "info.php"), // display information page

@@ -50,12 +50,15 @@ $controller = new Controller();
                     <a href="?action=accountDetails"><b>Signed in as <?php echo $_SESSION['username'] ?></b></a>. <a href="?action=logout">Sign out?</a>
                 </div>
                 <?php }  else { ?>
-                    <li role="presentation"><a href="?action=displayRegister">Register</a></li>
-                    <li role="presentation"><a href="?action=info">Information</a></li>
                 </ul>
+                
                 <div class="navbar-right">
-                    <a href="index.php"><button type="button" class="btn btn-default navbar-btn">Sign in</button></a>
+                    <ul class="nav navbar-nav" id="navbar">
+                    <li role="presentation"><a href="?action=displayRegister">Register</a></li>
+                    </ul>
+                    <a href="?action=displayLogin"><button type="button" class="btn btn-default navbar-btn">Sign in</button></a>
                 </div>
+                
                 <?php } ?>
             </div>
         </nav>

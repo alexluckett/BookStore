@@ -23,7 +23,7 @@ class Controller {
         unset($executeParams['action']);
         
         try {
-            $finalAction = $this->actionFactory->getAction('displayLogin'); // default not logged in. display login screen.
+            $finalAction = $this->actionFactory->getAction('welcomeScreen'); // default not logged in. display welcome screen.
             
             if($actionName !== NULL) { // user has requested an action
                 $finalAction = $this->actionFactory->getAction($actionName);

@@ -1,8 +1,7 @@
 <?php 
 
 if(isset($_REQUEST['user'])) {
-    $user = $_REQUEST['user'];
-    ?>
+    $user = $_REQUEST['user']; ?>
     <div class="panel panel-default">
         <div class="panel-heading">Your account details</div>
         <div class="panel-body">
