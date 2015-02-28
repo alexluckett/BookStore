@@ -40,6 +40,23 @@ class BookDAO {
         return $success && $success2;
     }
     
+    public static function getBook($isbn) {
+        $db = DatabaseConnection::getDatabase();
+
+        $query = "SELECT books.*, bookCategories.categoryName 
+            FROM books, bookCategories, bookCategoryAssociation
+            WHERE bookCategoryAssociation.isbn = books.isbn
+            AND bookCategories.categoryId = bookCategoryAssociation.categoryId
+            AND books.isbn = $isbn";
+
+        $statement = $db->prepare($query); // protect against SQL injection
+        $statement->setFetchMode(PDO::FETCH_CLASS, 'BookModel');
+        $statement->execute();
+        $book = $statement->fetch();
+        
+        return $book; // need one user returned, else invalid login details
+    }
+    
     public static function getBooksFromDatabase() {
         $db = DatabaseConnection::getDatabase();
 
@@ -81,6 +98,15 @@ class BookDAO {
         $books = $statement->fetchAll();
         
         return $books; // list of all categories
+    }
+    
+    public static function increaseQuantity($isbn, $quantityToAdd) {
+        $db = DatabaseConnection::getDatabase();
+
+        $query = "UPDATE books SET quantity = quantity + $quantityToAdd WHERE isbn = $isbn";
+
+        $statement = $db->prepare($query); // protect against SQL injection
+        return $statement->execute();
     }
     
     public static function decrementQuantity($isbn) {

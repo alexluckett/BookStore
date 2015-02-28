@@ -27,6 +27,8 @@ include_once 'model/actions/books/BookView.php';
 include_once 'model/actions/books/AddBook.php';
 include_once 'model/actions/books/AddBookForm.php';
 include_once 'model/actions/books/DeleteBook.php';
+include_once 'model/actions/books/AddQuantity.php';
+include_once 'model/actions/books/ViewAddQuantity.php';
 include_once 'model/actions/basket/AddToBasket.php';
 include_once 'model/actions/basket/ProcessBasket.php';
 include_once 'model/actions/basket/ViewBasket.php';
@@ -63,12 +65,14 @@ class ActionFactory {
             "viewBasket" => new ViewBasket(self::$userPermission), // view items in basket
             "viewUserBasket" => new ViewBasketStaff(self::$staffPermission), // view user's basket (from outside account)
             "viewUsers" => new ViewUsers(self::$staffPermission), // view a list of users
+            "viewEditBook" => new ViewAddQuantity(self::$staffPermission), // view page to add book quantity
             
             /* functions */
             "register" => new CreateAccount(), // log in to system
             "login" => new UserLogin(), // log in to system
             "logout" => new UserLogout(self::$userPermission), // log out from system
             "addBalanceAmount" => new AddUserBalance(self::$staffPermission), // add balance to user
+            "addQuantity" => new AddQuantity(self::$staffPermission), // add balance to user
             "deleteBook" => new DeleteBook(self::$staffPermission), // delete a book
             "addBook" => new AddBook(self::$staffPermission), // add a book
             "addToBasket" => new AddToBasket(self::$userPermission), // add a book to basket
