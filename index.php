@@ -49,7 +49,7 @@ $controller = new Controller();
                 <div class="navbar-text navbar-right">
                     <a href="?action=accountDetails"><b>Signed in as <?php echo $_SESSION['username'] ?></b></a>. <a href="?action=logout">Sign out?</a>
                 </div>
-                <?php }  else { ?>
+                <?php } else { ?>
                 </ul>
                 
                 <div class="navbar-right">

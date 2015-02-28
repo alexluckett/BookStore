@@ -9,6 +9,7 @@ foreach ($users as $user) {
             <span style="padding-left: 20px;">Balance: £<?php echo $user->accountBalance; ?></span>
             <div class="pull-right">
                 <a href="?action=viewUserBasket&userId=<?php echo $user->userId; ?>"><button type="button" class="btn">View cart</button></a>
+                <a href="?action=editUserPage&userId=<?php echo $user->userId; ?>"><button type="button" class="btn">Add balance</button></a>
                 <a href="?action=deleteUser&userId=<?php echo $user->userId; ?>"><button type="button" class="btn btn-danger">Delete user</button></a>
             </div>
         </div>

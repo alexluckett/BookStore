@@ -10,6 +10,8 @@ include_once 'model/dbaccess/BookDAO.php';
 
 include_once 'model/actions/users/CreateAccount.php';
 include_once 'model/actions/users/ViewAccountDetails.php';
+include_once 'model/actions/users/AddUserBalancePage.php';
+include_once 'model/actions/users/AddUserBalance.php';
 include_once 'model/actions/users/UserLogin.php';
 include_once 'model/actions/users/UserLogout.php';
 include_once 'model/actions/users/ViewUsers.php';
@@ -43,6 +45,7 @@ class ActionFactory {
         $this->actionMap = array (
             // "actionName" => class that extends IAction
             "welcomeScreen" => new LoadPage("/view", "welcomeScreen.php"),
+            "displayError" => new LoadPage("/view", "displayError.php"),
             "displayLogin" => new LoadPage("/view", "login.php"), // display login page
             "displayRegister" => new LoadPage("/view", "register.php"), // display account registration page
             "info" => new LoadPage("/view", "info.php"), // display information page
@@ -50,6 +53,8 @@ class ActionFactory {
             "login" => new UserLogin(), // log in to system
             "logout" => new UserLogout(self::$userPermission), // log out from system
             "accountDetails" => new ViewAccountDetails(self::$userPermission), // log out from system
+            "editUserPage" => new AddUserBalancePage(self::$staffPermission), // log out from system
+            "addBalanceAmount" => new AddUserBalance(self::$staffPermission), // log out from system
             "viewBooks" => new BookView(self::$userPermission), // view a list of books
             "deleteBook" => new DeleteBook(self::$staffPermission), // delete a book
             "addBook" => new AddBook(self::$staffPermission), // add a book
@@ -72,7 +77,7 @@ class ActionFactory {
         if(isset($this->actionMap[$actionName])) {
             return $this->actionMap[$actionName];
         } else {
-            throw new Exception("Action does not exist in action factory.");
+            throw new Exception("The action you are trying to run does not exist.");
         }
     }
     

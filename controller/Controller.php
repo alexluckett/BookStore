@@ -6,7 +6,7 @@ include_once ('ActionFactory.php');
 class Controller {
     private $actionFactory; // map of all possible actions within the program
     
-    private $debugEnabled = true;
+    private $debugEnabled = false;
     
     public function __construct() {
         $this->actionFactory = ActionFactory::getInstance();
@@ -34,8 +34,12 @@ class Controller {
             $this->exeucteAction($finalAction, $executeParams);
         } catch (Exception $ex) {
             if($this->debugEnabled) { var_dump($ex); }
-            echo("Specified action encountered a problem or does not exist."
-                    . "<a href='index.php'>Please click here to go back</a>.");
+            
+            $_REQUEST['errorTitle'] = "Specified action encountered a problem or does not exist.";
+            $_REQUEST['errorMessage'] = $ex->getMessage()." <a href='index.php'>Please click here to go back</a>.";
+            
+            $errorAction = $this->actionFactory->getAction('displayError');
+            $this->loadPage($errorAction);
         }
         
     }
@@ -51,7 +55,7 @@ class Controller {
 
     private function loadPage($action) {
         if(strlen($action->pageInclude()) !== 0) {
-            include(__DIR__."/..".$action->pageInclude());
+            include( __DIR__."/..".$action->pageInclude());
         }     
     }
     
