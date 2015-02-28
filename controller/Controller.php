@@ -1,6 +1,6 @@
 <?php
 
-include_once ('DbConfig.php');
+include_once ('DatabaseConnection.php');
 include_once ('ActionFactory.php');
 
 class Controller {
@@ -32,14 +32,17 @@ class Controller {
             }
             
             $this->exeucteAction($finalAction, $executeParams);
+        } catch (PDOException $ex) {
+            if($this->debugEnabled) { var_dump($ex); }
+            
+            $this->displayError("Database connection error.", 
+                                "Unable to connect to database, or the operation has malfunctioned.");
         } catch (Exception $ex) {
             if($this->debugEnabled) { var_dump($ex); }
             
             $this->displayError("Specified action encountered a problem or does not exist.", 
                                 $ex->getMessage()." <a href='index.php'>Please click here to go back</a>.");
-            
         }
-        
     }
     
     private function exeucteAction($action, $executeParams) {
