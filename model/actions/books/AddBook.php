@@ -7,7 +7,8 @@
  */
 class AddBook extends AuthenticatedAction {
     
-    public function execute($requestParams) {$bookModel = $this->constructBook($requestParams);
+    public function execute($requestParams) {
+        $bookModel = $this->constructBook($requestParams);
         
         $success = BookDAO::addBookToDatabase($bookModel);
         

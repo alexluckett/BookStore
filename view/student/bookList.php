@@ -38,7 +38,7 @@ if($_SESSION['permission'] == 1) {
         <div class="panel-body">
             <p>ISBN(13): <?php echo $book->isbn; ?></p>
             <p>Author(s): <?php echo $book->author; ?></p>
-            <p>Price: <?php echo $book->price; ?></p>
+            <p>Price: £<?php echo $book->price; ?></p>
             <p>Quantity in stock: <?php echo $book->quantity; ?></p>
 
             <?php if ($_SESSION['permission'] == 1) { ?>

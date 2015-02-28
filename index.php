@@ -47,9 +47,10 @@ $controller = new Controller();
                 <?php } ?>
                 </ul>
                 <div class="navbar-text navbar-right">
-                    <b>Signed in as <?php echo $_SESSION['username'] ?></b>. Account type: <?php echo $_SESSION['permissionString']; ?>. <a href="?action=logout">Sign out?</a>
+                    <a href="?action=accountDetails"><b>Signed in as <?php echo $_SESSION['username'] ?></b></a>. <a href="?action=logout">Sign out?</a>
                 </div>
                 <?php }  else { ?>
+                    <li role="presentation"><a href="?action=displayRegister">Register</a></li>
                     <li role="presentation"><a href="?action=info">Information</a></li>
                 </ul>
                 <div class="navbar-right">

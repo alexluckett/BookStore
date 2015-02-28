@@ -68,4 +68,19 @@ class UserDAO {
         return $users;
     }
     
+    public static function createUser($username, $password, $permissionLevel, $accountBalance) {
+        $db = DatabaseConnection::getDatabase();
+        
+        $passwordMd5 = md5($password); // not the most secure, but good enough for this coursework
+
+        $query = "INSERT into users VALUES(DEFAULT, '$username', '$passwordMd5', $permissionLevel, $accountBalance)";
+        $statement = $db->prepare($query); // protect against SQL injection
+        
+        return $statement->execute();
+    }
+    
+    public static function createStudent($username, $password) {
+        self::createUser($username, $password, 2, 0); // 2 = student, 0 = no balance
+    }
+    
 }

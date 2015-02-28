@@ -8,6 +8,8 @@ include_once 'model/dbaccess/UserDAO.php';
 include_once 'model/dbaccess/BasketDAO.php';
 include_once 'model/dbaccess/BookDAO.php';
 
+include_once 'model/actions/users/CreateAccount.php';
+include_once 'model/actions/users/ViewAccountDetails.php';
 include_once 'model/actions/users/UserLogin.php';
 include_once 'model/actions/users/UserLogout.php';
 include_once 'model/actions/users/ViewUsers.php';
@@ -40,19 +42,22 @@ class ActionFactory {
     private function __construct() {
         $this->actionMap = array (
             // "actionName" => class that extends IAction
-            "displayLogin" => new LoadPage("/view", "login.php"),
-            "info" => new LoadPage("/view", "info.php"),
-            "login" => new UserLogin(),
-            "logout" => new UserLogout(self::$userPermission),
-            "viewBooks" => new BookView(self::$userPermission),
-            "deleteBook" => new DeleteBook(self::$staffPermission),
-            "addBook" => new AddBook(self::$staffPermission),
-            "addBookForm" => new AddBookForm(self::$staffPermission),
-            "addToBasket" => new AddToBasket(self::$userPermission),
-            "viewBasket" => new ViewBasket(self::$userPermission),
-            "viewUserBasket" => new ViewBasketStaff(self::$staffPermission),
-            "processBasket" => new ProcessBasket(self::$staffPermission),
-            "viewUsers" => new ViewUsers(self::$staffPermission)
+            "displayLogin" => new LoadPage("/view", "login.php"), // display login page
+            "displayRegister" => new LoadPage("/view", "register.php"), // display account registration page
+            "info" => new LoadPage("/view", "info.php"), // display information page
+            "register" => new CreateAccount(), // log in to system
+            "login" => new UserLogin(), // log in to system
+            "logout" => new UserLogout(self::$userPermission), // log out from system
+            "accountDetails" => new ViewAccountDetails(self::$userPermission), // log out from system
+            "viewBooks" => new BookView(self::$userPermission), // view a list of books
+            "deleteBook" => new DeleteBook(self::$staffPermission), // delete a book
+            "addBook" => new AddBook(self::$staffPermission), // add a book
+            "addBookForm" => new AddBookForm(self::$staffPermission), // display page to add book
+            "addToBasket" => new AddToBasket(self::$userPermission), // add a book to basket
+            "viewBasket" => new ViewBasket(self::$userPermission), // view items in basket
+            "viewUserBasket" => new ViewBasketStaff(self::$staffPermission), // view user's basket (from outside account)
+            "processBasket" => new ProcessBasket(self::$staffPermission), // process a user's basket
+            "viewUsers" => new ViewUsers(self::$staffPermission) // view a list of users
         );
     }
     

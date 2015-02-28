@@ -45,7 +45,7 @@ class UserLogin extends GuestAction {
         $url = "/index.php";
         
         if($this->enableRedirect === false) {
-            $url = '/view/login.php';
+            $url = "/view/login.php";
         }
         
         return $url;
