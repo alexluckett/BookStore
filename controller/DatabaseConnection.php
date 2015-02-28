@@ -6,7 +6,7 @@ class DatabaseConnection {
 
     private static function constructDatabase() {
         $dbType = "mysql";
-        $dbHost = "localhost222";
+        $dbHost = "localhost";
         $dbName = "bookstore";
         $dbUser = "root";
         $dbPass = "root";
