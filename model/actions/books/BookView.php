@@ -14,9 +14,25 @@ class BookView extends AuthenticatedAction {
     }
 
     public function execute($requestParams) {
-        $books = BookDAO::getBooksFromDatabase();
+        $_REQUEST["categories"] = BookDAO::getBookCategories();
+        
+        $refineByCategory = isset($requestParams['categoryId']);
+                
+        if($refineByCategory) {
+            if(isset($requestParams['categoryId']) && $requestParams['categoryId'] != 0) {
+                $books = BookDAO::getBooksForCategory($requestParams['categoryId']);
+            } else {
+                $books = BookDAO::getBooksFromDatabase();
+            }
+        } else {
+            $books = BookDAO::getBooksFromDatabase();
+        }
         
         $_REQUEST["books"] = $books;
+    }
+    
+    private function displayAllBooks() {
+        return BookDAO::getBooksFromDatabase();
     }
 
     /**

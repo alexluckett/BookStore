@@ -20,15 +20,37 @@ if (strlen($message) != 0) {
     <?php
 }
 $books = $_REQUEST["books"];
-if($_SESSION['permission'] == 1) {
-?>
-<div style="display: inline-block; width: 100%;">
-    <div class="pull-right">
-        <a href="?action=addBookForm">
-            <button type="button" style="margin-left: 5px;" class="btn btn-success">Add new book</button>
-        </a>
+$categories = $_REQUEST["categories"];
+
+if ($_SESSION['permission'] == 1) {
+    ?>
+    <script type="text/javascript">
+        function changeCategory(categoryId) {
+            window.location = "?action=viewBooks&categoryId=" + categoryId;
+        }
+    </script>
+
+    <div style="display: inline-block; width: 100%;">
+        <div class="pull-right">
+            <div class="pull-left">
+                <select name="bookCategories" onchange="changeCategory(this.value);" class="form-control">
+                    <option value="0">All categories</option>
+                    <?php foreach ($categories as $category) { ?>
+                        <option value="<?php echo $category->categoryId; ?>"
+                        <?php if (isset($_REQUEST['categoryId']) && ($_REQUEST['categoryId'] == $category->categoryId)) { ?>
+                                    selected="true" 
+                                <?php } ?>
+                                ><?php echo $category->categoryName; ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
+
+            <a href="?action=addBookForm">
+                <button type="button" style="margin-left: 5px;" class="btn btn-success">Add new book</button>
+            </a>
+        </div>
     </div>
-</div>
 <?php } foreach ($books as $book) {
     ?>
     <div class="panel panel-default" id="book<?php echo $book->isbn; ?>">
@@ -53,6 +75,4 @@ if($_SESSION['permission'] == 1) {
             <?php } ?>
         </div>
     </div>
-    <?php
-}
-?>
+<?php } ?>

@@ -43,7 +43,10 @@ class BookDAO {
     public static function getBooksFromDatabase() {
         $db = DatabaseConnection::getDatabase();
 
-        $query = "SELECT * from books";
+        $query = "SELECT books.*, bookCategories.categoryName 
+            FROM books, bookCategories, bookCategoryAssociation
+            WHERE bookCategoryAssociation.isbn = books.isbn
+            AND bookCategories.categoryId = bookCategoryAssociation.categoryId";
 
         $statement = $db->prepare($query); // protect against SQL injection
         $statement->setFetchMode(PDO::FETCH_CLASS, 'BookModel');
@@ -51,6 +54,33 @@ class BookDAO {
         $books = $statement->fetchAll();
         
         return $books; // need one user returned, else invalid login details
+    }
+    
+    public static function getBooksForCategory($categoryId) {
+        $db = DatabaseConnection::getDatabase();
+
+        $query = "SELECT books.* FROM books WHERE books.isbn IN
+                    (SELECT isbn FROM bookCategoryAssociation WHERE categoryId = $categoryId)";
+
+        $statement = $db->prepare($query);
+        $statement->setFetchMode(PDO::FETCH_CLASS, 'BookModel');
+        $statement->execute();
+        $books = $statement->fetchAll();
+        
+        return $books; // list of all books for that category
+    }
+    
+    public static function getBookCategories() {
+        $db = DatabaseConnection::getDatabase();
+
+        $query = "SELECT * FROM bookCategories";
+
+        $statement = $db->prepare($query);
+        $statement->setFetchMode(PDO::FETCH_CLASS, 'BookCategoryModel');
+        $statement->execute();
+        $books = $statement->fetchAll();
+        
+        return $books; // list of all categories
     }
     
     public static function decrementQuantity($isbn) {

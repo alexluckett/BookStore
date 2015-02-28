@@ -1,21 +1,28 @@
 <?php
 
-include_once 'model/actions/IAction.php';
-include_once 'model/actions/AuthenticatedAction.php';
-include_once 'model/actions/GuestAction.php';
-
 include_once 'model/dbaccess/UserDAO.php';
 include_once 'model/dbaccess/BasketDAO.php';
 include_once 'model/dbaccess/BookDAO.php';
 
+include_once 'model/actions/IAction.php';
+include_once 'model/actions/AuthenticatedAction.php';
+include_once 'model/actions/GuestAction.php';
+
+include_once 'model/DomainModel.php';
+include_once 'model/BookCategoryModel.php';
+include_once 'model/BookModel.php';
+include_once 'model/UserModel.php';
+
+include_once 'model/actions/LoadPage.php';
 include_once 'model/actions/users/CreateAccount.php';
+
 include_once 'model/actions/users/ViewAccountDetails.php';
 include_once 'model/actions/users/AddUserBalancePage.php';
 include_once 'model/actions/users/AddUserBalance.php';
 include_once 'model/actions/users/UserLogin.php';
 include_once 'model/actions/users/UserLogout.php';
 include_once 'model/actions/users/ViewUsers.php';
-include_once 'model/actions/LoadPage.php';
+
 include_once 'model/actions/books/BookView.php';
 include_once 'model/actions/books/AddBook.php';
 include_once 'model/actions/books/AddBookForm.php';
