@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of DeleteBook
+ * Deletes a book from the system
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

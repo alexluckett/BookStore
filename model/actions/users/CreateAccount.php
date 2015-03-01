@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of CreateAccount
+ * Creates a user account based on input parameters in the $_REQUEST array.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

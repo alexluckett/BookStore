@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of BookDAO
+ * Abstraction layer for database communication relating to books.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

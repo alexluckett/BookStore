@@ -43,6 +43,8 @@ class ActionFactory {
 
     private $actionMap;
     private static $singletonActionFactory;
+    
+    /* permission levels */
     private static $staffPermission = 1;
     private static $userPermission = 2;
 
@@ -97,7 +99,7 @@ class ActionFactory {
     /**
      * Returns the singleton instance of the action factory.
      * 
-     * @return type
+     * @return ActionFactory
      */
     public static function getInstance() {
         if (!isset(self::$singletonActionFactory)) {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of ViewAccountDetails
+ * Displays the page for showing account details.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

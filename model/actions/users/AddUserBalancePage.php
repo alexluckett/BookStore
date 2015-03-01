@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of AddUserBalancePage
+ * Displays the page containing the form for user balance addition.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

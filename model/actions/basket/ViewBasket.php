@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of ViewBasket
+ * Displays the page to show a user's basket.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

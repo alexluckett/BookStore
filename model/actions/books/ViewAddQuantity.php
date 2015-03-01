@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of ViewAddQuantity
+ * Displays the page for adding a book quantity.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

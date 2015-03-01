@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of UserDAO
+ * Abstraction layer for database communication relating to users.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of AddUserBalance
+ * Adds an amount to a user's balance.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

@@ -7,17 +7,23 @@
 interface IAction {
     
     /**
-     * Executes the business action run from the controller.
+     * Responsible for action execution, called before page output.
+     * Should initialise output variables for the view to utilise.
      */
     function execute($requestParams);
     
     /**
-     * Returns a string representing the path of the PHP file to include after execute() is run.
+     * Returns a string representing the file to include after execution.
+     * Should be relative to path of index.php.
      */
     function pageInclude();
     
     /**
-     * Returns true or false, depending on if the request should be allowed or not.
+     * Used to confirm if user can execute this action. Action will be executed
+     * depending on true/false return value.
+     * 
+     * @return boolean
      */
     function isLegalRequest();
+    
 }

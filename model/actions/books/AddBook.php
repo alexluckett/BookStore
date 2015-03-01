@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of AddBook
+ * Adds a book into the system.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

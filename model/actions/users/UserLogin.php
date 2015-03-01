@@ -3,7 +3,7 @@
 include_once 'model/UserModel.php';
 
 /**
- * Description of UserLogin
+ * Takes in the user's username and password, then logs them in if appropriate.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

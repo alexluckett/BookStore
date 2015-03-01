@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of ViewBasketStaff
+ * Displays a user's basket to a staff member.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

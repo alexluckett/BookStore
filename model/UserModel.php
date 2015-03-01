@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of userModel
+ * Represents a user
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of AddToBasket
+ * Adds a book to a user's basket, given a isbn.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of UserLogout
+ * Logs out the current user.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

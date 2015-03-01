@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Displays the page to add a book.
+ */
 class AddBookForm extends AuthenticatedAction {
     
     public function execute($requestParams) { } // nothing to do here

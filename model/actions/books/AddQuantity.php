@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of AddQuantity
+ * Adds a quantity number to a book
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

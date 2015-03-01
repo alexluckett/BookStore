@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Description of ProcessBasket
+ * Processes all items in a user's basket. If successful, it will deduct
+ * the prices from the user's account and decrement the quantities.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

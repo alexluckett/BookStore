@@ -4,7 +4,10 @@ class DatabaseConnection {
 
     private static $db;
 
-    private static function constructDatabase() {
+    /**
+     * Initialises a connection to the database.
+     */
+    private static function initialiseConnection() {
         $dbType = "mysql";
         $dbHost = "localhost";
         $dbName = "bookstore";
@@ -15,9 +18,13 @@ class DatabaseConnection {
         self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
+    /**
+     * Returns a singleton instance of the PDO.
+     * @return PDO
+     */
     public static function getDatabase() {
         if (empty(self::$db)) {
-            self::constructDatabase();
+            self::initialiseConnection();
         }
 
         return self::$db;

@@ -3,7 +3,7 @@
 include_once 'model/BookModel.php';
 
 /**
- * Description of ViewBookList
+ * Displays the page for viewing a list of books.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

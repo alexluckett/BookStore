@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of ViewUsers
+ * Displays the page containing the user list.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of BasketDAO
+ * Abstraction layer for database communication relating to user's basket.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

@@ -12,6 +12,11 @@ class Controller {
         $this->actionFactory = ActionFactory::getInstance();
     }
     
+    /**
+     * Finds the relevant business action and executes it, sending the output to the view.
+     * 
+     * @param array $request request parameters
+     */
     public function invoke($request) {
         $actionName = NULL;
         
@@ -20,7 +25,7 @@ class Controller {
         }
         
         $executeParams = $request;
-        unset($executeParams['action']);
+        unset($executeParams['action']); // out of scope for models - unneccessary
         
         try {
             $finalAction = $this->actionFactory->getAction('viewWelcome'); // default not logged in. display welcome screen.
@@ -45,6 +50,12 @@ class Controller {
         }
     }
     
+    /**
+     * Executes a business action and displays output
+     * 
+     * @param IAction $action
+     * @param array $executeParams
+     */
     private function exeucteAction($action, $executeParams) {
         if ($action->isLegalRequest()) { // checks if the user has permission to run the action
             $action->execute($executeParams); // run pre-requisites before page shown
@@ -54,12 +65,22 @@ class Controller {
         }
     }
 
+    /**
+     * Loads a page from a business action
+     * @param IAction $action
+     */
     private function loadPage($action) {
         if(strlen($action->pageInclude()) !== 0) {
             include( __DIR__."/..".$action->pageInclude());
         }     
     }
     
+    /**
+     * Display a nerror message to the view
+     * 
+     * @param string $errorTitle
+     * @param string $errorMessage
+     */
     private function displayError($errorTitle, $errorMessage) {
         /* todo refactor this into new action */
         

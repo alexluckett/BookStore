@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of BookCategoryModel
+ * Represents a Book Category
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */
