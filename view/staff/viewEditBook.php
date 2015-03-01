@@ -6,7 +6,7 @@
     <?php if($_REQUEST['messageType'] === "success") { ?>
         The book quantity was successfully increased.
     <?php } else { ?>
-        The book quantity was unuccessfully increased.
+        The book quantity was unsuccessfully increased.
     <?php } ?>
     </div>
 <?php } ?>
