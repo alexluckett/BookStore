@@ -18,8 +18,13 @@ class AddQuantity extends AuthenticatedAction {
         $amountToAdd = $_REQUEST['amountToAdd'];
 
         $book = BookDAO::getBook($isbn);
-
-        $_REQUEST['messageType'] = BookDAO::increaseQuantity($isbn, ($book->quantity + $amountToAdd)); // let view know whether success or not
+        
+        // let view know whether success or not
+        if(BookDAO::increaseQuantity($isbn, ($book->quantity + $amountToAdd))) {
+            $_REQUEST['messageType'] = "success";
+        } else {
+            $_REQUEST['messageType'] = "danger";
+        }
         $_REQUEST['book'] = BookDAO::getBook($isbn); // send updated book back to client page
     }
     
