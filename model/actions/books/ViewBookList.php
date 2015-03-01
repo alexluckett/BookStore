@@ -3,11 +3,11 @@
 include_once 'model/BookModel.php';
 
 /**
- * Description of BookView
+ * Description of ViewBookList
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */
-class BookView extends AuthenticatedAction {
+class ViewBookList extends AuthenticatedAction {
     
     public function __construct($permissionInteger) {
         parent::__construct($permissionInteger);

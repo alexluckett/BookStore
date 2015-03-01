@@ -23,7 +23,7 @@ include_once 'model/actions/users/UserLogin.php';
 include_once 'model/actions/users/UserLogout.php';
 include_once 'model/actions/users/ViewUsers.php';
 
-include_once 'model/actions/books/BookView.php';
+include_once 'model/actions/books/ViewBookList.php';
 include_once 'model/actions/books/AddBook.php';
 include_once 'model/actions/books/AddBookForm.php';
 include_once 'model/actions/books/DeleteBook.php';
@@ -60,7 +60,7 @@ class ActionFactory {
             "viewInfo" => new LoadPage("/view", "info.php"), // display information page
             "viewEditUser" => new AddUserBalancePage(self::$staffPermission), // view edit user page
             "viewAccountDetails" => new ViewAccountDetails(self::$userPermission), // view account details page
-            "viewBooks" => new BookView(self::$userPermission), // view a list of books
+            "viewBooks" => new ViewBookList(self::$userPermission), // view a list of books
             "viewAddBook" => new AddBookForm(self::$staffPermission), // display page to add book
             "viewBasket" => new ViewBasket(self::$userPermission), // view items in basket
             "viewUserBasket" => new ViewBasketStaff(self::$staffPermission), // view user's basket (from outside account)
