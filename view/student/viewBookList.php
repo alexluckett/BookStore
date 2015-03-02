@@ -51,7 +51,12 @@ $categories = $_REQUEST["categories"];
     </div>
 </div>
 <div class="row">
-    <?php foreach ($books as $book) {
+    <?php if(sizeof($books) === 0) { ?>
+        <div class="alert alert-danger">
+           There are no books currently within BookStore.
+        </div>
+    <?php }
+    foreach ($books as $book) {
         ?>
         <div class="col-md-4">
             <div class="panel panel-default" id="book<?php echo $book->isbn; ?>">
