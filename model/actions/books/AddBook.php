@@ -13,7 +13,7 @@ class AddBook extends AuthenticatedAction {
         $bookModel = $this->constructBook($requestParams);
         $categoryId = $requestParams['categories'];
         
-        //$success = BookDAO::addBookToDatabase($bookModel, $categoryId);
+        $success = BookDAO::addBookToDatabase($bookModel, $categoryId);
         
         $this->uploadFile($bookModel);
         
