@@ -1,5 +1,7 @@
 <?php
 
+include_once 'model/utils/FileUploader.php';
+
 /**
  * Adds a book into the system.
  *
@@ -7,10 +9,13 @@
  */
 class AddBook extends AuthenticatedAction {
     
-    public function execute($requestParams) {
+    public function execute($requestParams) { 
         $bookModel = $this->constructBook($requestParams);
+        $categoryId = $requestParams['categories'];
         
-        $success = BookDAO::addBookToDatabase($bookModel);
+        //$success = BookDAO::addBookToDatabase($bookModel, $categoryId);
+        
+        $this->uploadFile($bookModel);
         
         if($success) {
             $_REQUEST['message'] = 'Book: '.$bookModel->isbn.' added';
@@ -21,6 +26,18 @@ class AddBook extends AuthenticatedAction {
         
         $_REQUEST['books'] = BookDAO::getBooksFromDatabase();
         $_REQUEST["categories"] = BookDAO::getBookCategories();
+    }
+    
+    private function uploadFile($book) {
+        $uploadedFile = $_FILES['uploadedFile'];
+        
+        $fileType = pathinfo($uploadedFile['name'], PATHINFO_EXTENSION);
+        $uploadedFile['name'] = $book->isbn.".".$fileType;
+        
+        $permittedFileTypes = array("png", "jpg", "jpeg");
+        
+        $fileUploader = new FileUploader("view/images/bookcovers", $permittedFileTypes);
+        $fileUploader->saveFile($uploadedFile);
     }
 
     public function pageInclude() {

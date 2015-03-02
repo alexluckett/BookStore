@@ -30,10 +30,6 @@ class ViewBookList extends AuthenticatedAction {
         
         $_REQUEST["books"] = $books;
     }
-    
-    private function displayAllBooks() {
-        return BookDAO::getBooksFromDatabase();
-    }
 
     /**
      * @return string

@@ -10,5 +10,6 @@ class BookModel extends DomainModel {
     protected $title;
     protected $author;
     protected $price;
-    protected $quantity;    
+    protected $quantity;
+    protected $categories;
 }

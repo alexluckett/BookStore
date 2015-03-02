@@ -7,7 +7,7 @@
  */
 class BookDAO {
     
-    public static function addBookToDatabase($bookModel) {
+    public static function addBookToDatabase($bookModel, array $categoryIds) {        
         $db = DatabaseConnection::getDatabase();
 
         $query = "INSERT INTO books VALUES ("; // construct statment, append all values from book model
@@ -22,7 +22,23 @@ class BookDAO {
 
         $statement = $db->prepare($query); // protect against SQL injection
         
-        return $statement->execute(); // boolean
+        $success = $statement->execute(); // boolean
+        
+        self::setBookCategories($bookModel->isbn, $categoryIds);
+        
+        return $success;
+    }
+    
+    public static function setBookCategories($isbn, array $categoryIds) {
+        $db = DatabaseConnection::getDatabase();
+        
+        foreach($categoryIds as $catId) {
+            $query = "INSERT INTO bookCategoryAssociation VALUES ($isbn, $catId)";
+
+            $statement = $db->prepare($query); // protect against SQL injection
+
+            $statement->execute(); // boolean
+        }
     }
     
     public static function deleteBookFromDatabase($isbn) {
@@ -60,13 +76,30 @@ class BookDAO {
     public static function getBooksFromDatabase() {
         $db = DatabaseConnection::getDatabase();
 
-        $query = "SELECT books.*, bookCategories.categoryName 
-            FROM books, bookCategories, bookCategoryAssociation
-            WHERE bookCategoryAssociation.isbn = books.isbn
-            AND bookCategories.categoryId = bookCategoryAssociation.categoryId";
+        $query = "SELECT * FROM books";
 
         $statement = $db->prepare($query); // protect against SQL injection
         $statement->setFetchMode(PDO::FETCH_CLASS, 'BookModel');
+        $statement->execute();
+        $books = $statement->fetchAll();
+        
+        foreach($books as $book) { // set categories for each book
+            $bookCats = self::getCategoriesForBook($book->isbn);
+            $book->categories = $bookCats;
+        }
+        
+        return $books; // need one user returned, else invalid login details
+    }
+    
+    public static function getCategoriesForBook($isbn) {
+        $db = DatabaseConnection::getDatabase();
+
+        $query = "SELECT DISTINCT bookCategories.* FROM bookCategories, bookCategoryAssociation
+                  WHERE bookCategories.categoryId
+                  IN (SELECT categoryId FROM bookCategoryAssociation WHERE isbn = $isbn)";
+
+        $statement = $db->prepare($query); // protect against SQL injection
+        $statement->setFetchMode(PDO::FETCH_CLASS, 'BookCategoryModel');
         $statement->execute();
         $books = $statement->fetchAll();
         
@@ -83,6 +116,11 @@ class BookDAO {
         $statement->setFetchMode(PDO::FETCH_CLASS, 'BookModel');
         $statement->execute();
         $books = $statement->fetchAll();
+        
+        foreach($books as $book) { // set categories for each book
+            $bookCats = self::getCategoriesForBook($book->isbn);
+            $book->categories = $bookCats;
+        }
         
         return $books; // list of all books for that category
     }
