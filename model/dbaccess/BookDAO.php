@@ -44,16 +44,20 @@ class BookDAO {
     public static function deleteBookFromDatabase($isbn) {
         $db = DatabaseConnection::getDatabase();
 
-        $query = "DELETE from books WHERE books.isbn = '".$isbn."'";
-        $query2 = "DELETE from userBasket WHERE isbn = '".$isbn."'";
+        $query1 = "DELETE from bookCategoryAssociation WHERE isbn = '".$isbn."'";
+        $query2 = "DELETE from books WHERE books.isbn = '".$isbn."'";
+        $query3 = "DELETE from userBasket WHERE isbn = '".$isbn."'";
         
-        $statement = $db->prepare($query); // protect against SQL injection
+        
+        $statement1 = $db->prepare($query1); // protect against SQL injection
         $statement2 = $db->prepare($query2);
+        $statement3 = $db->prepare($query3);
         
-        $success = $statement->execute();
+        $success1 = $statement1->execute();
         $success2 = $statement2->execute();
+        $success3 = $statement3->execute();
         
-        return $success && $success2;
+        return $success1 && $success2 && $success3;
     }
     
     public static function getBook($isbn) {
