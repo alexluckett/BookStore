@@ -34,7 +34,7 @@ class AddBook extends AuthenticatedAction {
         $fileType = pathinfo($uploadedFile['name'], PATHINFO_EXTENSION);
         $uploadedFile['name'] = $book->isbn.".".$fileType;
         
-        $permittedFileTypes = array("png", "jpg", "jpeg");
+        $permittedFileTypes = array("png");
         
         $fileUploader = new FileUploader("view/images/bookcovers", $permittedFileTypes);
         $fileUploader->saveFile($uploadedFile);

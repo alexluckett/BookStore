@@ -24,7 +24,7 @@
     <div class="form-group">
         <label for="uploadedFile">Book cover image</label>
         <input type="file" name="uploadedFile" id="uploadedFile" />
-        <p class="help-block">Permitted file types: PNG, JPEG.</p>
+        <p class="help-block">Permitted file types: PNG.</p>
     </div>
     <br />
 

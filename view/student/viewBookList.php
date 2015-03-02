@@ -59,6 +59,11 @@ $categories = $_REQUEST["categories"];
                     <h3 class="panel-title"><?php echo $book->title; ?></h3>
                 </div>
                 <div class="panel-body">
+                    <div class="text-center">
+                        <img src="view/images/bookcovers/<?php echo $book->isbn; ?>.png" 
+                             alt="<?php echo $book->title; ?>'s cover photo" width="187.5px" height="300px" /><!-- 187.5x300 to conform to 1.6 aspect ratio for consistency -->
+                    </div>
+                    
                     <p><b>ISBN(13): </b><?php echo $book->isbn; ?></p>
                     <p><b>Author(s): </b><?php echo $book->author; ?></p>
                     <p><b>Price: </b>£<?php echo $book->price; ?></p>
