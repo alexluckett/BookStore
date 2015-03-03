@@ -17,6 +17,7 @@ class DeleteBook extends AuthenticatedAction {
         $success = BookDAO::deleteBookFromDatabase($isbn);
         
         if($success) {
+            $this->deleteCoverImage($isbn);
             $_REQUEST['message'] = 'Book: '.$isbn.' deleted';
         } else {
             $_REQUEST['message'] = 'Unable to delete book.';
@@ -28,6 +29,12 @@ class DeleteBook extends AuthenticatedAction {
 
     public function pageInclude() {
         return "/view/student/viewBookList.php";
+    }
+    
+    private function deleteCoverImage($isbn) {
+        if(isset($isbn)) {
+            unlink("view/images/bookcovers/".$isbn.".png");
+        }
     }
     
 }

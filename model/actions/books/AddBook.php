@@ -15,9 +15,8 @@ class AddBook extends AuthenticatedAction {
         
         $success = BookDAO::addBookToDatabase($bookModel, $categoryId);
         
-        $this->uploadFile($bookModel);
-        
         if($success) {
+            $this->uploadFile($bookModel); // only upload if book was added
             $_REQUEST['message'] = 'Book: '.$bookModel->isbn.' added';
             $_REQUEST['alertType'] = 'success';
         } else {
