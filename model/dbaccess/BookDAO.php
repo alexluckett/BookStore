@@ -100,7 +100,7 @@ class BookDAO {
 
         $query = "SELECT DISTINCT bookCategories.* FROM bookCategories, bookCategoryAssociation
                   WHERE bookCategories.categoryId
-                  IN (SELECT categoryId FROM bookCategoryAssociation WHERE isbn = $isbn)";
+                  IN (SELECT categoryId FROM bookCategoryAssociation WHERE isbn = '$isbn')";
 
         $statement = $db->prepare($query); // protect against SQL injection
         $statement->setFetchMode(PDO::FETCH_CLASS, 'BookCategoryModel');
