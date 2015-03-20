@@ -15,7 +15,7 @@ class AddUserBalance extends AuthenticatedAction {
         $userId = $_REQUEST['userId'];
         $amountToAdd = $_REQUEST['amountToAdd'];
         
-        $user = UserDAO::getUserFromDatabase($userId);
+        $user = UserDAO::getUser($userId);
         
         if($amountToAdd < 0) {
             throw new Exception("Please input positive numbers in balance.");
@@ -23,7 +23,7 @@ class AddUserBalance extends AuthenticatedAction {
         
         UserDAO::updateUserBalance($userId, ($user->accountBalance + $amountToAdd));
         
-        $_REQUEST['user'] = UserDAO::getUserFromDatabase($userId); // send updated user back to client page
+        $_REQUEST['user'] = UserDAO::getUser($userId); // send updated user back to client page
     }
 
     public function pageInclude() {

@@ -40,7 +40,7 @@ class UserDAO {
      * @param String $passwordMd5 MD5 hash of password
      * @return UserModel
      */
-    public static function getUserFromDatabase($userId) {
+    public static function getUser($userId) {
         $db = DatabaseConnection::getDatabase();
 
         $query = "SELECT users.*, userPermissions.permissionString from users, userPermissions "
@@ -74,6 +74,15 @@ class UserDAO {
         $passwordMd5 = md5($password); // not the most secure, but good enough for this coursework
 
         $query = "INSERT into users VALUES(DEFAULT, '$username', '$passwordMd5', $permissionLevel, $accountBalance)";
+        $statement = $db->prepare($query); // protect against SQL injection
+        
+        return $statement->execute();
+    }
+    
+    public static function deleteUser($userId) {
+        $db = DatabaseConnection::getDatabase();
+
+        $query = "DELETE FROM users WHERE userId = '$userId'";
         $statement = $db->prepare($query); // protect against SQL injection
         
         return $statement->execute();

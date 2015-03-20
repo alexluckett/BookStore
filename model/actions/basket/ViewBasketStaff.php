@@ -13,7 +13,7 @@ class ViewBasketStaff extends AuthenticatedAction {
     
     public function execute($requestParams) {
         $userId = $requestParams['userId'];
-        $user = UserDAO::getUserFromDatabase($userId);
+        $user = UserDAO::getUser($userId);
         $bookList = BasketDAO::getBooksFromBasket($userId);
         
         $_REQUEST['bookList'] = $bookList;

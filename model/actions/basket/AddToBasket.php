@@ -16,7 +16,7 @@ class AddToBasket extends AuthenticatedAction {
         $user = $_SESSION['userId'];
         
         try {
-            BasketDAO::addToBasketInDatabase($user, $isbn);
+            BasketDAO::addToBasket($user, $isbn);
             $_REQUEST['alertType'] = 'success';
             $_REQUEST['message'] = "Book (".$isbn.") successfully added to basket";
         } catch (Exception $ex) {

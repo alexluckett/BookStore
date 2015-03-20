@@ -10,7 +10,7 @@ class AddUserBalancePage extends AuthenticatedAction {
     public function execute($requestParams) {
         $userId = $_REQUEST['userId'];
         
-        $userToEdit = UserDAO::getUserFromDatabase($userId);
+        $userToEdit = UserDAO::getUser($userId);
         
         $_REQUEST['userToEdit'] = $userToEdit;
     }

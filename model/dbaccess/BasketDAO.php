@@ -7,7 +7,7 @@
  */
 class BasketDAO {
     
-    public static function addToBasketInDatabase($userId, $isbn) {
+    public static function addToBasket($userId, $isbn) {
         $db = DatabaseConnection::getDatabase();
 
         $query = "INSERT into userBasket VALUES(".$userId.",".$isbn.")";
@@ -37,6 +37,15 @@ class BasketDAO {
         $query = "DELETE FROM userBasket WHERE userId = '$userId' AND isbn = $isbn;";
 
         $statement = $db->prepare($query); // protect against SQL injection
+        return $statement->execute();
+    }
+    
+    public static function emptyBasket($userId) {
+        $db = DatabaseConnection::getDatabase();
+
+        $query = "DELETE FROM userBasket WHERE userId = '$userId'";
+
+        $statement = $db->prepare($query);
         return $statement->execute();
     }
 }

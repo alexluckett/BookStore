@@ -14,7 +14,7 @@ class ViewAccountDetails extends AuthenticatedAction {
     public function execute($requestParams) {
         $userId = $_SESSION['userId'];
         
-        $user = UserDAO::getUserFromDatabase($userId);
+        $user = UserDAO::getUser($userId);
         
         $_REQUEST['user'] = $user;
     }

@@ -10,7 +10,7 @@ class ProcessBasket extends AuthenticatedAction {
 
     public function execute($requestParams) {
         $userId = $requestParams['userId'];
-        $user = UserDAO::getUserFromDatabase($userId);
+        $user = UserDAO::getUser($userId);
         $books = BasketDAO::getBooksFromBasket($userId);
 
         $messageType = "success";
@@ -18,7 +18,7 @@ class ProcessBasket extends AuthenticatedAction {
 
         foreach ($books as $book) {
             try {
-                $user = UserDAO::getUserFromDatabase($userId); // return updated user after modification
+                $user = UserDAO::getUser($userId); // return updated user after modification
                 $this->processItem($book, $user);
             } catch (Exception $ex) {
                 $messageType = "danger";

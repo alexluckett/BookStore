@@ -22,6 +22,7 @@ include_once 'model/actions/users/AddUserBalance.php';
 include_once 'model/actions/users/UserLogin.php';
 include_once 'model/actions/users/UserLogout.php';
 include_once 'model/actions/users/ViewUsers.php';
+include_once 'model/actions/users/DeleteUser.php';
 
 include_once 'model/actions/books/ViewBookList.php';
 include_once 'model/actions/books/AddBook.php';
@@ -78,7 +79,8 @@ class ActionFactory {
             "deleteBook" => new DeleteBook(self::$staffPermission), // delete a book
             "addBook" => new AddBook(self::$staffPermission), // add a book
             "addToBasket" => new AddToBasket(self::$userPermission), // add a book to basket
-            "processBasket" => new ProcessBasket(self::$staffPermission) // process a user's basket
+            "processBasket" => new ProcessBasket(self::$staffPermission), // process a user's basket
+            "deleteUser" => new DeleteUser(self::$staffPermission) // delete a user
         );
     }
 
