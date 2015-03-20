@@ -81,12 +81,17 @@ $categories = $_REQUEST["categories"];
 
                     <?php if ($_SESSION['permission'] == 1) { ?>
                         <div>
-                            <p><a href="?action=viewEditBook&isbn=<?php echo $book->isbn; ?>">Edit book</a></p>
-                            <p><a href="?action=deleteBook&isbn=<?php echo $book->isbn; ?>">Delete book</a></p>
+                            <p style="text-align: center;">
+                                <a href="?action=viewEditBook&isbn=<?php echo $book->isbn; ?>" class="btn btn-default" role="button">Edit book</a>
+                                <a href="?action=deleteBook&isbn=<?php echo $book->isbn; ?>" class="btn btn-danger" role="button">Delete book</a>
+                            </p>
                         </div>
                     <?php } else { ?>
                         <div>
-                            <p><a href="?action=addToBasket&isbn=<?php echo $book->isbn; ?>">Add to basket</a></p>
+                            <p></p>
+                            <p style="text-align: center;">
+                                <a href="?action=addToBasket&isbn=<?php echo $book->isbn; ?>" class="btn btn-success" role="button">Add to basket</a>
+                            </p>
                         </div>
                     <?php } ?>
                 </div>
