@@ -33,7 +33,7 @@ class BookDAO {
         $db = DatabaseConnection::getDatabase();
         
         foreach($categoryIds as $catId) {
-            $query = "INSERT INTO bookCategoryAssociation VALUES ($isbn, $catId)";
+            $query = "INSERT INTO bookCategoryAssociation VALUES ('$isbn', $catId)";
 
             $statement = $db->prepare($query); // protect against SQL injection
 
@@ -67,7 +67,7 @@ class BookDAO {
             FROM books, bookCategories, bookCategoryAssociation
             WHERE bookCategoryAssociation.isbn = books.isbn
             AND bookCategories.categoryId = bookCategoryAssociation.categoryId
-            AND books.isbn = $isbn";
+            AND books.isbn = '$isbn'";
 
         $statement = $db->prepare($query); // protect against SQL injection
         $statement->setFetchMode(PDO::FETCH_CLASS, 'BookModel');
@@ -145,7 +145,7 @@ class BookDAO {
     public static function increaseQuantity($isbn, $quantityToAdd) {
         $db = DatabaseConnection::getDatabase();
 
-        $query = "UPDATE books SET quantity = quantity + $quantityToAdd WHERE isbn = $isbn";
+        $query = "UPDATE books SET quantity = quantity + $quantityToAdd WHERE isbn = '$isbn'";
 
         $statement = $db->prepare($query); // protect against SQL injection
         return $statement->execute();
@@ -154,7 +154,7 @@ class BookDAO {
     public static function decrementQuantity($isbn) {
         $db = DatabaseConnection::getDatabase();
 
-        $query = "UPDATE books SET quantity = quantity - 1 WHERE isbn = $isbn and quantity > 0";
+        $query = "UPDATE books SET quantity = quantity - 1 WHERE isbn = '$isbn' and quantity > 0";
 
         $statement = $db->prepare($query); // protect against SQL injection
         return $statement->execute();
