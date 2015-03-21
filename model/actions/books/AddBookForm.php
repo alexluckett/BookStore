@@ -6,7 +6,7 @@
 class AddBookForm extends AuthenticatedAction {
     
     public function execute($requestParams) {
-        $_REQUEST["categories"] = BookDAO::getBookCategories();
+        $_REQUEST["categories"] = CategoryDAO::getBookCategories();
     }
 
     public function pageInclude() {

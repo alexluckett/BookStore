@@ -14,7 +14,7 @@ class ViewBookList extends AuthenticatedAction {
     }
 
     public function execute($requestParams) {
-        $_REQUEST["categories"] = BookDAO::getBookCategories();
+        $_REQUEST["categories"] = CategoryDAO::getBookCategories();
         
         $refineByCategory = isset($requestParams['categoryId']);
                 

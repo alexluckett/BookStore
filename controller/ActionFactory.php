@@ -3,6 +3,7 @@
 include_once 'model/dbaccess/UserDAO.php';
 include_once 'model/dbaccess/BasketDAO.php';
 include_once 'model/dbaccess/BookDAO.php';
+include_once 'model/dbaccess/CategoryDAO.php';
 
 include_once 'model/actions/IAction.php';
 include_once 'model/actions/AuthenticatedAction.php';
@@ -30,6 +31,9 @@ include_once 'model/actions/books/AddBookForm.php';
 include_once 'model/actions/books/DeleteBook.php';
 include_once 'model/actions/books/AddQuantity.php';
 include_once 'model/actions/books/ViewAddQuantity.php';
+include_once 'model/actions/books/AddCategory.php';
+include_once 'model/actions/books/ViewAddCategory.php';
+
 include_once 'model/actions/basket/AddToBasket.php';
 include_once 'model/actions/basket/ProcessBasket.php';
 include_once 'model/actions/basket/ViewBasket.php';
@@ -69,6 +73,7 @@ class ActionFactory {
             "viewUserBasket" => new ViewBasketStaff(self::$staffPermission), // view user's basket (from outside account)
             "viewUsers" => new ViewUsers(self::$staffPermission), // view a list of users
             "viewEditBook" => new ViewAddQuantity(self::$staffPermission), // view page to add book quantity
+            "viewAddCategory" => new ViewAddCategory(self::$staffPermission), // view page to add book quantity
             
             /* functions */
             "register" => new CreateAccount(), // log in to system
@@ -80,7 +85,8 @@ class ActionFactory {
             "addBook" => new AddBook(self::$staffPermission), // add a book
             "addToBasket" => new AddToBasket(self::$userPermission), // add a book to basket
             "processBasket" => new ProcessBasket(self::$staffPermission), // process a user's basket
-            "deleteUser" => new DeleteUser(self::$staffPermission) // delete a user
+            "deleteUser" => new DeleteUser(self::$staffPermission), // delete a user
+            "addCategory" => new AddCategory(self::$staffPermission) // add a new book category
         );
     }
 

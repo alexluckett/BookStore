@@ -129,19 +129,6 @@ class BookDAO {
         return $books; // list of all books for that category
     }
     
-    public static function getBookCategories() {
-        $db = DatabaseConnection::getDatabase();
-
-        $query = "SELECT * FROM bookCategories";
-
-        $statement = $db->prepare($query);
-        $statement->setFetchMode(PDO::FETCH_CLASS, 'BookCategoryModel');
-        $statement->execute();
-        $books = $statement->fetchAll();
-        
-        return $books; // list of all categories
-    }
-    
     public static function increaseQuantity($isbn, $quantityToAdd) {
         $db = DatabaseConnection::getDatabase();
 

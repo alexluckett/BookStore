@@ -1,5 +1,5 @@
-<form action="index.php?action=addBook" method="post" class="form-signin" enctype="multipart/form-data">
-    <h2 class="form-signin-heading">Add book</h2>
+<form action="index.php?action=addBook" method="post" enctype="multipart/form-data">
+    <h2>Add book</h2>
 
     <label for="isbn" class="sr-only">ISBN: </label>
     <input name="isbn" type="text" class="form-control" placeholder="ISBN(13)" required autofocus />
@@ -14,7 +14,7 @@
 
     <br />
     <label for="categories">Category (ctrl + click to select multiple): </label>
-    <select name="categories[]" class="form-control" multiple required>
+    <select name="categories[]" class="form-control" multiple required><?php // [] by "categories" means that the php server side interprets it as an array ?>
         <?php foreach ($_REQUEST["categories"] as $category) { ?>
             <option value="<?php echo $category->categoryId; ?>"><?php echo $category->categoryName; ?></option>
         <?php } ?>
@@ -29,7 +29,7 @@
     <br />
 
     <div style="text-align: center;">
-        <button class="btn btn-lg btn-primary" style="width: 49%;" type="submit">Add book</button>
-        <button class="btn btn-lg" style="width: 49%;" ttype="reset">Clear</button>
+        <button class="btn btn-lg btn-primary" type="submit">Add book</button>
+        <button class="btn btn-lg" type="reset">Clear</button>
     </div>
 </form>

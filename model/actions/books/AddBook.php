@@ -24,7 +24,7 @@ class AddBook extends AuthenticatedAction {
         }
         
         $_REQUEST['books'] = BookDAO::getBooksFromDatabase();
-        $_REQUEST["categories"] = BookDAO::getBookCategories();
+        $_REQUEST["categories"] = CategoryDAO::getBookCategories();
     }
     
     private function uploadFile($book) {

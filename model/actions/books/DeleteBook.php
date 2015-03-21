@@ -24,7 +24,7 @@ class DeleteBook extends AuthenticatedAction {
         }
         
         $_REQUEST["books"] = BookDAO::getBooksFromDatabase();
-        $_REQUEST["categories"] = BookDAO::getBookCategories();
+        $_REQUEST["categories"] = CategoryDAO::getBookCategories();
     }
 
     public function pageInclude() {
