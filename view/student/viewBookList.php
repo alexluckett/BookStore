@@ -89,7 +89,7 @@ $categories = $_REQUEST["categories"];
                     <?php if ($_SESSION['permission'] == 1) { ?>
                         <div>
                             <p style="text-align: center;">
-                                <a href="?action=viewEditBook&isbn=<?php echo $book->isbn; ?>" class="btn btn-default" role="button">Edit book</a>
+                                <a href="?action=viewAddQuantity&isbn=<?php echo $book->isbn; ?>" class="btn btn-default" role="button">Add quantity</a>
                                 <a href="?action=deleteBook&isbn=<?php echo $book->isbn; ?>" class="btn btn-danger" role="button">Delete book</a>
                             </p>
                         </div>

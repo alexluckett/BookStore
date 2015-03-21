@@ -55,6 +55,8 @@ class ActionFactory {
 
     /**
      * Constructs a map of action names to class responsible for execution.
+     * 
+     * No system action can be ran unless it is explicitly allowed here.
      */
     private function __construct() {
         
@@ -72,7 +74,7 @@ class ActionFactory {
             "viewBasket" => new ViewBasket(self::$userPermission), // view items in basket
             "viewUserBasket" => new ViewBasketStaff(self::$staffPermission), // view user's basket (from outside account)
             "viewUsers" => new ViewUsers(self::$staffPermission), // view a list of users
-            "viewEditBook" => new ViewAddQuantity(self::$staffPermission), // view page to add book quantity
+            "viewAddQuantity" => new ViewAddQuantity(self::$staffPermission), // view page to add book quantity
             "viewAddCategory" => new ViewAddCategory(self::$staffPermission), // view page to add book quantity
             
             /* functions */

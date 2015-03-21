@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of AddCategory
+ * Adds a new book category
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

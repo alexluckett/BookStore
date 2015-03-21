@@ -14,8 +14,8 @@ class AddQuantity extends AuthenticatedAction {
     public function execute($requestParams) {
         $this->validateParams($requestParams);
         
-        $isbn = $_REQUEST['isbn'];
-        $amountToAdd = $_REQUEST['amountToAdd'];
+        $isbn = $requestParams['isbn'];
+        $amountToAdd = $requestParams['amountToAdd'];
 
         $book = BookDAO::getBook($isbn);
         
@@ -25,6 +25,7 @@ class AddQuantity extends AuthenticatedAction {
         } else {
             $_REQUEST['messageType'] = "danger";
         }
+        
         $_REQUEST['book'] = BookDAO::getBook($isbn); // send updated book back to client page
     }
     
