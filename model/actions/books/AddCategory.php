@@ -14,7 +14,7 @@ class AddCategory extends AuthenticatedAction {
     public function execute($requestParams) {
         $categoryName = $requestParams['categoryName'];
         
-        $message = "Category " + $categoryName + " successfully created.";
+        $message = "Category ".$categoryName." successfully created.";
         $messageType = "success";
         
         try {

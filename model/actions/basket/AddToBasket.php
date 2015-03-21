@@ -24,7 +24,7 @@ class AddToBasket extends AuthenticatedAction {
         }
         
         $_REQUEST["categories"] = CategoryDAO::getBookCategories();
-        $_REQUEST['books'] = BookDAO::getBooksFromDatabase();
+        $_REQUEST['books'] = BookDAO::getBookList();
     }
 
     public function pageInclude() {

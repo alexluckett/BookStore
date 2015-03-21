@@ -22,10 +22,10 @@ class ViewBookList extends AuthenticatedAction {
             if(isset($requestParams['categoryId']) && $requestParams['categoryId'] != 0) {
                 $books = BookDAO::getBooksForCategory($requestParams['categoryId']);
             } else {
-                $books = BookDAO::getBooksFromDatabase();
+                $books = BookDAO::getBookList();
             }
         } else {
-            $books = BookDAO::getBooksFromDatabase();
+            $books = BookDAO::getBookList();
         }
         
         $_REQUEST["books"] = $books;

@@ -65,8 +65,13 @@ $categories = $_REQUEST["categories"];
                 </div>
                 <div class="panel-body">
                     <div class="text-center">
-                        <img src="view/images/bookcovers/<?php echo $book->isbn; ?>.png" 
-                             alt="<?php echo $book->title; ?>'s cover photo" width="187.5px" height="300px" /><!-- 187.5x300 to conform to 1.6 aspect ratio for consistency -->
+                        <?php if(file_exists("view/images/bookcovers/".$book->isbn.".png")) { // check if exists before we use ?> 
+                            <img src="view/images/bookcovers/<?php echo $book->isbn; ?>.png" 
+                             alt="<?php echo $book->title; ?>'s cover photo" width="188px" height="300px" /><!-- 188x300 to conform to 1.6 aspect ratio (consistency) -->
+                        <?php } else { // if file does not exist, revert to default image ?>
+                            <img src="view/images/bookcovers/NO_COVER.png" 
+                             alt="No cover photo for this book" width="188px" height="300px" />
+                        <?php } ?>
                     </div>
                     
                     <p><b>ISBN(13): </b><?php echo $book->isbn; ?></p>

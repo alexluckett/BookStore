@@ -48,7 +48,7 @@ class ProcessBasket extends AuthenticatedAction {
 
         UserDAO::updateUserBalance($user->userId, $balance);
         BasketDAO::removeFromBasket($user->userId, $item->isbn);
-        BookDAO::decrementQuantity($item->isbn);
+        BookDAO::decrementBookQuantity($item->isbn);
     }
 
 }

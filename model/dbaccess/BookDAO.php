@@ -7,7 +7,7 @@
  */
 class BookDAO {
     
-    public static function addBookToDatabase($bookModel, array $categoryIds) {        
+    public static function addBook($bookModel, array $categoryIds) {        
         $db = DatabaseConnection::getDatabase();
 
         $query = "INSERT INTO books VALUES ("; // construct statment, append all values from book model
@@ -41,7 +41,7 @@ class BookDAO {
         }
     }
     
-    public static function deleteBookFromDatabase($isbn) {
+    public static function deleteBook($isbn) {
         $db = DatabaseConnection::getDatabase();
 
         $query1 = "DELETE from bookCategoryAssociation WHERE isbn = '".$isbn."'";
@@ -77,7 +77,7 @@ class BookDAO {
         return $book; // need one user returned, else invalid login details
     }
     
-    public static function getBooksFromDatabase() {
+    public static function getBookList() {
         $db = DatabaseConnection::getDatabase();
 
         $query = "SELECT * FROM books";
@@ -129,7 +129,7 @@ class BookDAO {
         return $books; // list of all books for that category
     }
     
-    public static function increaseQuantity($isbn, $quantityToAdd) {
+    public static function increaseBookQuantity($isbn, $quantityToAdd) {
         $db = DatabaseConnection::getDatabase();
 
         $query = "UPDATE books SET quantity = quantity + $quantityToAdd WHERE isbn = '$isbn'";
@@ -138,7 +138,7 @@ class BookDAO {
         return $statement->execute();
     }
     
-    public static function decrementQuantity($isbn) {
+    public static function decrementBookQuantity($isbn) {
         $db = DatabaseConnection::getDatabase();
 
         $query = "UPDATE books SET quantity = quantity - 1 WHERE isbn = '$isbn' and quantity > 0";
