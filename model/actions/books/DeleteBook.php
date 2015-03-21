@@ -32,7 +32,7 @@ class DeleteBook extends AuthenticatedAction {
     }
     
     private function deleteCoverImage($isbn) {
-        $filePath = "view/images/bookcovers/".$isbn.".png";
+        $filePath = AddBook::UPLOAD_DIRECTORY."/".$isbn.".png";
         
         if(isset($isbn) && file_exists($filePath)) {
             unlink($filePath);

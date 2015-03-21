@@ -8,6 +8,7 @@ include_once 'model/utils/FileSaver.php';
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */
 class AddBook extends AuthenticatedAction {
+    const UPLOAD_DIRECTORY = "view/images/bookcovers/useruploads";
     
     public function execute($requestParams) { 
         $bookModel = $this->constructBook($requestParams);
@@ -41,7 +42,7 @@ class AddBook extends AuthenticatedAction {
         $permittedFileTypes = array("png"); // restricted to php for now, but can be extended
         
         try {
-            $fileUploader = new FileSaver("view/images/bookcovers", $permittedFileTypes);
+            $fileUploader = new FileSaver(self::UPLOAD_DIRECTORY, $permittedFileTypes);
             $fileUploader->saveFile($uploadedFile);
         } catch (Exception $ex) {
             throw new Exception($ex->getMessage()." Placeholder cover photo will be used."); // apend specialised error message to exception
