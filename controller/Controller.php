@@ -6,7 +6,7 @@ include_once ('ActionFactory.php');
 class Controller {
     private $actionFactory; // map of all possible actions within the program
     
-    private $debugEnabled = true;
+    private $debugEnabled = false;
     
     public function __construct() {
         $this->actionFactory = ActionFactory::getInstance();
