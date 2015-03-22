@@ -33,6 +33,7 @@ include_once 'model/actions/books/AddQuantity.php';
 include_once 'model/actions/books/ViewAddQuantity.php';
 
 include_once 'model/actions/basket/AddToBasket.php';
+include_once 'model/actions/basket/DeleteBasketItem.php';
 include_once 'model/actions/basket/ProcessBasket.php';
 include_once 'model/actions/basket/ViewBasket.php';
 include_once 'model/actions/basket/ViewBasketStaff.php';
@@ -90,6 +91,7 @@ class ActionFactory {
             "deleteBook" => new DeleteBook(self::$staffPermission), // delete a book
             "addBook" => new AddBook(self::$staffPermission), // add a book
             "addToBasket" => new AddToBasket(self::$userPermission), // add a book to basket
+            "deleteBasketItem" => new DeleteBasketItem(self::$userPermission), // remove a book from basket
             "processBasket" => new ProcessBasket(self::$staffPermission), // process a user's basket
             "deleteUser" => new DeleteUser(self::$staffPermission), // delete a user
             "addCategory" => new AddCategory(self::$staffPermission), // add a new book category

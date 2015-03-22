@@ -2,6 +2,12 @@
 <?php
 $bookList = $_REQUEST['bookList'];
 
+if (isset($_REQUEST["message"])) { ?>
+    <div class="alert alert-success">
+        <?php echo $_REQUEST["message"]; ?>
+    </div>
+<?php }
+
 if (sizeof($bookList) == 0) {
     ?>
     <div class="alert alert-danger">
@@ -12,15 +18,25 @@ if (sizeof($bookList) == 0) {
 
     foreach ($bookList as $book) {
         ?>
-        <div class="panel panel-default" id="book<?php echo $book->isbn; ?>">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?php echo $book->title; ?></h3>
-            </div>
-            <div class="panel-body">
-                <p>ISBN(13): <?php echo $book->isbn; ?></p>
-                <p>Author(s): <?php echo $book->author; ?></p>
-                <p>Price: <?php echo $book->price; ?></p>
-                <p>Quantity in stock: <?php echo $book->quantity; ?></p>
+        <div class="col-md-4">
+            <div class="panel panel-default" id="book<?php echo $book->isbn; ?>">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?php echo $book->title; ?></h3>
+                </div>
+                <div class="panel-body">                    
+                    <p><b>ISBN(13): </b><?php echo $book->isbn; ?></p>
+                    <p><b>Author(s): </b><?php echo $book->author; ?></p>
+                    <p><b>Price: </b>£<?php echo $book->price; ?></p>
+                    <p><b>Quantity in stock: </b><?php echo $book->quantity; ?></p>
+
+                    <?php if ($_SESSION['permission'] !== 1) { ?>
+                        <div>
+                            <p style="text-align: center;">
+                                <a href="?action=deleteBasketItem&isbn=<?php echo $book->isbn; ?>" class="btn btn-danger" role="button">Remove</a>
+                            </p>
+                        </div>
+                    <?php } ?>
+                </div>
             </div>
         </div>
         <?php

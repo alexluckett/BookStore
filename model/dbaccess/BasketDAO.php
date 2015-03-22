@@ -10,12 +10,13 @@ class BasketDAO {
     public static function addToBasket($userId, $isbn) {
         $db = DatabaseConnection::getDatabase();
 
-        $query = "INSERT into userBasket VALUES(".$userId.",".$isbn.")";
+        $query = "INSERT into userBasket VALUES(".$userId.",'".$isbn."')";
+        
         $statement = $db->prepare($query); // protect against SQL injection
         
         return $statement->execute();
     }
-   
+    
     public static function getBooksFromBasket($userId) {
         $db = DatabaseConnection::getDatabase();
 
@@ -31,10 +32,17 @@ class BasketDAO {
         return $bookList; 
     }
     
+    /**
+     * Removes a book from a user's basket.
+     * 
+     * @param int $userId
+     * @param string $isbn
+     * @return boolean
+     */
     public static function removeFromBasket($userId, $isbn) {
         $db = DatabaseConnection::getDatabase();
 
-        $query = "DELETE FROM userBasket WHERE userId = '$userId' AND isbn = $isbn;";
+        $query = "DELETE FROM userBasket WHERE userId = $userId AND isbn = '$isbn'";
 
         $statement = $db->prepare($query); // protect against SQL injection
         return $statement->execute();
