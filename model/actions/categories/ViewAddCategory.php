@@ -11,11 +11,10 @@ class ViewAddCategory extends AuthenticatedAction {
         parent::__construct($permissionInteger);
     }
     
-    public function execute($requestParams) { } // nothing to do here
+    public function execute($requestParams) { } // nothing to do here, only page include below
 
     public function pageInclude() {
         return "/view/staff/addCategoryPage.php";
     }
 
-//put your code here
 }

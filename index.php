@@ -39,7 +39,7 @@ $controller = new Controller();
                     if ($_SESSION['permission'] == 1) {
                         ?>
                         <li role="presentation"><a href="?action=viewBooks">Manage books</a></li>
-                        <li role="presentation"><a href="?action=viewAddCategory">Manage categories</a></li>
+                        <li role="presentation"><a href="?action=viewCategories">Manage categories</a></li>
                         <li role="presentation"><a href="?action=viewUsers">Manage users</a></li>
                     <?php } else { ?>
                         <li role="presentation"><a href="?action=viewBooks">View books</a></li>

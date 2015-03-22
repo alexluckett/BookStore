@@ -15,8 +15,8 @@ include_once 'model/BookModel.php';
 include_once 'model/UserModel.php';
 
 include_once 'model/actions/LoadPage.php';
-include_once 'model/actions/users/CreateAccount.php';
 
+include_once 'model/actions/users/CreateAccount.php';
 include_once 'model/actions/users/ViewAccountDetails.php';
 include_once 'model/actions/users/AddUserBalancePage.php';
 include_once 'model/actions/users/AddUserBalance.php';
@@ -31,13 +31,16 @@ include_once 'model/actions/books/AddBookForm.php';
 include_once 'model/actions/books/DeleteBook.php';
 include_once 'model/actions/books/AddQuantity.php';
 include_once 'model/actions/books/ViewAddQuantity.php';
-include_once 'model/actions/books/AddCategory.php';
-include_once 'model/actions/books/ViewAddCategory.php';
 
 include_once 'model/actions/basket/AddToBasket.php';
 include_once 'model/actions/basket/ProcessBasket.php';
 include_once 'model/actions/basket/ViewBasket.php';
 include_once 'model/actions/basket/ViewBasketStaff.php';
+
+include_once 'model/actions/categories/AddCategory.php';
+include_once 'model/actions/categories/DeleteCategory.php';
+include_once 'model/actions/categories/ViewAddCategory.php';
+include_once 'model/actions/categories/ViewCategoryList.php';
 
 /**
  * Description of actionFactory
@@ -45,9 +48,9 @@ include_once 'model/actions/basket/ViewBasketStaff.php';
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */
 class ActionFactory {
-
-    private $actionMap;
     private static $singletonActionFactory;
+    
+    private $actionMap;
     
     /* permission levels */
     private static $staffPermission = 1;
@@ -75,6 +78,7 @@ class ActionFactory {
             "viewUserBasket" => new ViewBasketStaff(self::$staffPermission), // view user's basket (from outside account)
             "viewUsers" => new ViewUsers(self::$staffPermission), // view a list of users
             "viewAddQuantity" => new ViewAddQuantity(self::$staffPermission), // view page to add book quantity
+            "viewCategories" => new ViewCategoryList(self::$staffPermission), // view page to add book quantity
             "viewAddCategory" => new ViewAddCategory(self::$staffPermission), // view page to add book quantity
             
             /* functions */
@@ -88,7 +92,8 @@ class ActionFactory {
             "addToBasket" => new AddToBasket(self::$userPermission), // add a book to basket
             "processBasket" => new ProcessBasket(self::$staffPermission), // process a user's basket
             "deleteUser" => new DeleteUser(self::$staffPermission), // delete a user
-            "addCategory" => new AddCategory(self::$staffPermission) // add a new book category
+            "addCategory" => new AddCategory(self::$staffPermission), // add a new book category
+            "deleteCategory" => new DeleteCategory(self::$staffPermission) // delete a book category
         );
     }
 
