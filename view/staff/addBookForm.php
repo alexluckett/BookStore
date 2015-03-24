@@ -1,9 +1,9 @@
 <style type="text/css">
-    form input {
+    form > input {
         margin-bottom: 5px;
     }
     
-    .input-group {
+    form > input-group {
         margin-bottom: 5px;
     }
 </style>
