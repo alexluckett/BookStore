@@ -108,14 +108,6 @@ class ActionFactory {
             throw new Exception("The action you are trying to run does not exist.");
         }
         
-        $action = $this->actionMap[$actionName];
-        
-        if($action instanceof ClassLoader) {
-            return $action->getClassInstance(); // temp workaround until I've structured this better
-        } else {
-            return $action;
-        }
-        
         $actionEntry = $this->actionMap[$actionName];
         
         if(is_string($actionEntry)) { // a bit hacky until I fix this
