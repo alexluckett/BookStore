@@ -7,6 +7,10 @@
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */
 class ProcessBasket extends AuthenticatedAction {
+    
+    public function __construct() {
+        parent::__construct(self::staffPermission);
+    }
 
     public function execute($requestParams) {
         $userId = $requestParams['userId'];

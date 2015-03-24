@@ -7,6 +7,10 @@
  */
 class ViewUsers extends AuthenticatedAction {
     
+    public function __construct() {
+        parent::__construct(self::staffPermission);
+    }
+    
     public function execute($requestParams) {
         $_REQUEST['users'] = UserDAO::getStudents();
     }

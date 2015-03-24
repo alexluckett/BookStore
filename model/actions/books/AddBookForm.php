@@ -5,6 +5,10 @@
  */
 class AddBookForm extends AuthenticatedAction {
     
+    public function __construct() {
+        parent::__construct(self::staffPermission);
+    }
+    
     public function execute($requestParams) {
         $_REQUEST["categories"] = CategoryDAO::getBookCategories();
     }

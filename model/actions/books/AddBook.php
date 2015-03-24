@@ -10,6 +10,10 @@ include_once 'model/utils/FileSaver.php';
 class AddBook extends AuthenticatedAction {
     const UPLOAD_DIRECTORY = "view/images/bookcovers/useruploads";
     
+    public function __construct() {
+        parent::__construct(self::staffPermission);
+    }
+    
     public function execute($requestParams) { 
         $bookModel = $this->constructBook($requestParams);
         $categoryId = $requestParams['categories'];

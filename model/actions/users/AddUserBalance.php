@@ -7,8 +7,8 @@
  */
 class AddUserBalance extends AuthenticatedAction {
     
-    public function __construct($permissionInteger) {
-        parent::__construct($permissionInteger);
+    public function __construct() {
+        parent::__construct(self::staffPermission);
     }
     
     public function execute($requestParams) {

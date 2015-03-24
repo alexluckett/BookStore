@@ -6,6 +6,10 @@
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */
 abstract class AuthenticatedAction implements IAction {
+    
+    /* permission levels */
+    const staffPermission = 1;
+    const userPermission = 2;
 
     protected $minimumPermissionLevel;
 

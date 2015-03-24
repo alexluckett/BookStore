@@ -6,6 +6,10 @@
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */
 class DeleteBook extends AuthenticatedAction {
+
+    public function __construct() {
+        parent::__construct(self::staffPermission);
+    }
     
     public function execute($requestParams) {        
         $isbn = "";

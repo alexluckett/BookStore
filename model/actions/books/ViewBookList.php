@@ -9,8 +9,8 @@ include_once 'model/BookModel.php';
  */
 class ViewBookList extends AuthenticatedAction {
     
-    public function __construct($permissionInteger) {
-        parent::__construct($permissionInteger);
+    public function __construct() {
+        parent::__construct(self::userPermission);
     }
 
     public function execute($requestParams) {

@@ -7,8 +7,8 @@
  */
 class ViewAddCategory extends AuthenticatedAction {
     
-    public function __construct($permissionInteger) {
-        parent::__construct($permissionInteger);
+    public function __construct() {
+        parent::__construct(self::staffPermission);
     }
     
     public function execute($requestParams) { } // nothing to do here, only page include below

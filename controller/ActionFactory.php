@@ -44,7 +44,7 @@ include_once 'model/actions/categories/ViewAddCategory.php';
 include_once 'model/actions/categories/ViewCategoryList.php';
 
 /**
- * Description of actionFactory
+ * Constrcuts a map of actions, then returns actions associated with it.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */
@@ -53,10 +53,6 @@ class ActionFactory {
     
     private $actionMap;
     
-    /* permission levels */
-    private static $staffPermission = 1;
-    private static $userPermission = 2;
-
     /**
      * Constructs a map of action names to class responsible for execution.
      * 
@@ -71,31 +67,31 @@ class ActionFactory {
             "viewLogin" => new LoadPage("/view", "login.php"), // display login page
             "viewRegister" => new LoadPage("/view", "register.php"), // display account registration page
             "viewInfo" => new LoadPage("/view", "info.php"), // display information page
-            "viewEditUser" => new AddUserBalancePage(self::$staffPermission), // view edit user page
-            "viewAccountDetails" => new ViewAccountDetails(self::$userPermission), // view account details page
-            "viewBooks" => new ViewBookList(self::$userPermission), // view a list of books
-            "viewAddBook" => new AddBookForm(self::$staffPermission), // display page to add book
-            "viewBasket" => new ViewBasket(self::$userPermission), // view items in basket
-            "viewUserBasket" => new ViewBasketStaff(self::$staffPermission), // view user's basket (from outside account)
-            "viewUsers" => new ViewUsers(self::$staffPermission), // view a list of users
-            "viewAddQuantity" => new ViewAddQuantity(self::$staffPermission), // view page to add book quantity
-            "viewCategories" => new ViewCategoryList(self::$staffPermission), // view page to add book quantity
-            "viewAddCategory" => new ViewAddCategory(self::$staffPermission), // view page to add book quantity
+            "viewEditUser" => "AddUserBalancePage", // view edit user page
+            "viewAccountDetails" => "ViewAccountDetails", // view account details page
+            "viewBooks" => "ViewBookList", // view a list of books
+            "viewAddBook" => "AddBookForm", // display page to add book
+            "viewBasket" => "ViewBasket", // view items in basket
+            "viewUserBasket" => "ViewBasketStaff", // view user's basket (from outside account)
+            "viewUsers" => "ViewUsers", // view a list of users
+            "viewAddQuantity" => "ViewAddQuantity", // view page to add book quantity
+            "viewCategories" => "ViewCategoryList", // view page for categories
+            "viewAddCategory" => "ViewAddCategory", // view page for adding category
             
             /* functions */
-            "register" => new CreateAccount(), // log in to system
-            "login" => new UserLogin(), // log in to system
-            "logout" => new UserLogout(self::$userPermission), // log out from system
-            "addBalanceAmount" => new AddUserBalance(self::$staffPermission), // add balance to user
-            "addQuantity" => new AddQuantity(self::$staffPermission), // add balance to user
-            "deleteBook" => new DeleteBook(self::$staffPermission), // delete a book
-            "addBook" => new AddBook(self::$staffPermission), // add a book
-            "addToBasket" => new AddToBasket(self::$userPermission), // add a book to basket
-            "deleteBasketItem" => new DeleteBasketItem(self::$userPermission), // remove a book from basket
-            "processBasket" => new ProcessBasket(self::$staffPermission), // process a user's basket
-            "deleteUser" => new DeleteUser(self::$staffPermission), // delete a user
-            "addCategory" => new AddCategory(self::$staffPermission), // add a new book category
-            "deleteCategory" => new DeleteCategory(self::$staffPermission) // delete a book category
+            "register" => "CreateAccount", // log in to system
+            "login" => "UserLogin", // log in to system
+            "logout" => "UserLogout", // log out from system
+            "addBalanceAmount" => "AddUserBalance", // add balance to user
+            "addQuantity" => "AddQuantity", // add balance to user
+            "deleteBook" => "DeleteBook", // delete a book
+            "addBook" => "AddBook", // add a book
+            "addToBasket" => "AddToBasket", // add a book to basket
+            "deleteBasketItem" => "DeleteBasketItem", // remove a book from basket
+            "processBasket" => "ProcessBasket", // process a user's basket
+            "deleteUser" => "DeleteUser",// delete a user
+            "addCategory" => "AddCategory", // add a new book category
+            "deleteCategory" => "DeleteCategory" // delete a book category
         );
     }
 
@@ -106,10 +102,22 @@ class ActionFactory {
      * @return IAction action
      */
     public function getAction($actionName) {
-        if (isset($this->actionMap[$actionName])) {
-            return $this->actionMap[$actionName];
-        } else {
+        if (!isset($this->actionMap[$actionName])) {
             throw new Exception("The action you are trying to run does not exist.");
+        }
+        
+        $actionEntry = $this->actionMap[$actionName];
+        
+        if(is_string($actionEntry)) { // a bit hacky until I fix this
+            $action = new $actionEntry;
+            
+            if($action instanceof IAction) {
+                return $action;
+            } else {
+                return NULL;
+            }
+        } else {
+            return $actionEntry;
         }
     }
 
