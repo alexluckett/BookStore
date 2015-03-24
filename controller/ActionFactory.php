@@ -1,13 +1,15 @@
 <?php
 
+include_once ('ClassLoader.php');
+
+include_once 'IAction.php';
+include_once 'model/actions/AuthenticatedAction.php';
+include_once 'model/actions/GuestAction.php';
+
 include_once 'model/dbaccess/UserDAO.php';
 include_once 'model/dbaccess/BasketDAO.php';
 include_once 'model/dbaccess/BookDAO.php';
 include_once 'model/dbaccess/CategoryDAO.php';
-
-include_once 'model/actions/IAction.php';
-include_once 'model/actions/AuthenticatedAction.php';
-include_once 'model/actions/GuestAction.php';
 
 include_once 'model/DomainModel.php';
 include_once 'model/BookCategoryModel.php';
@@ -104,6 +106,14 @@ class ActionFactory {
     public function getAction($actionName) {
         if (!isset($this->actionMap[$actionName])) {
             throw new Exception("The action you are trying to run does not exist.");
+        }
+        
+        $action = $this->actionMap[$actionName];
+        
+        if($action instanceof ClassLoader) {
+            return $action->getClassInstance(); // temp workaround until I've structured this better
+        } else {
+            return $action;
         }
         
         $actionEntry = $this->actionMap[$actionName];
