@@ -1,7 +1,5 @@
 <?php
 
-include_once ('ClassLoader.php');
-
 include_once 'IAction.php';
 include_once 'model/actions/AuthenticatedAction.php';
 include_once 'model/actions/GuestAction.php';
@@ -111,16 +109,27 @@ class ActionFactory {
         $actionEntry = $this->actionMap[$actionName];
         
         if(is_string($actionEntry)) { // a bit hacky until I fix this
-            $action = new $actionEntry;
-            
-            if($action instanceof IAction) {
-                return $action;
-            } else {
-                return NULL;
-            }
+            return $this->actionFromString($actionEntry);
         } else {
             return $actionEntry;
         }
+    }
+    
+    /**
+     * Returns a business action, given the class name as a string parameter.
+     * 
+     * @param string $className
+     * @return \IAction
+     * @throws Exception
+     */
+    private function actionFromString($className) {
+        $object = new $className;
+        
+        if(!($object instanceof IAction)) {
+            throw new Exception("The action you are trying to run is invalid.");
+        }
+        
+        return $object;
     }
 
     /**
