@@ -10,17 +10,16 @@ class BookDAO {
     public static function addBook($bookModel, array $categoryIds) {        
         $db = DatabaseConnection::getDatabase();
 
-        $query = "INSERT INTO books VALUES ("; // construct statment, append all values from book model
-        {
-            $query.= "'".$bookModel->isbn."',";
-            $query.= "'".$bookModel->title."',";
-            $query.= "'".$bookModel->author."',";
-            $query.= $bookModel->price.",";
-            $query.= $bookModel->quantity;
-        }
-        $query.= ")";
-
+        $query = "INSERT INTO books VALUES (:isbn, :title, :author, :price, :quantity)"; // construct statment, append all values from book model
+        
         $statement = $db->prepare($query); // protect against SQL injection
+        $statement->bindValue(":isbn", $bookModel->isbn);
+        $statement->bindValue(":title", $bookModel->title);
+        $statement->bindValue(":author", $bookModel->author);
+        $statement->bindValue(":price", $bookModel->price);
+        $statement->bindValue(":quantity", $bookModel->quantity);
+        
+        var_dump($statement);
         
         $success = $statement->execute(); // boolean
         
@@ -33,9 +32,11 @@ class BookDAO {
         $db = DatabaseConnection::getDatabase();
         
         foreach($categoryIds as $catId) {
-            $query = "INSERT INTO bookCategoryAssociation VALUES ('$isbn', $catId)";
+            $query = "INSERT INTO bookCategoryAssociation VALUES (:isbn, :catId)";
 
             $statement = $db->prepare($query); // protect against SQL injection
+            $statement->bindValue(":isbn", $isbn);
+            $statement->bindValue(":catId", $catId);
 
             $statement->execute(); // boolean
         }
@@ -44,14 +45,18 @@ class BookDAO {
     public static function deleteBook($isbn) {
         $db = DatabaseConnection::getDatabase();
 
-        $query1 = "DELETE from bookCategoryAssociation WHERE isbn = '".$isbn."'";
-        $query2 = "DELETE from books WHERE books.isbn = '".$isbn."'";
-        $query3 = "DELETE from userBasket WHERE isbn = '".$isbn."'";
+        $query1 = "DELETE from bookCategoryAssociation WHERE isbn = :isbn";
+        $query2 = "DELETE from books WHERE books.isbn = :isbn";
+        $query3 = "DELETE from userBasket WHERE isbn = :isbn";
         
+        var_dump($isbn);
         
         $statement1 = $db->prepare($query1); // protect against SQL injection
+        $statement1->bindValue(":isbn", $isbn);
         $statement2 = $db->prepare($query2);
+        $statement2->bindValue(":isbn", $isbn);
         $statement3 = $db->prepare($query3);
+        $statement3->bindValue(":isbn", $isbn);
         
         $success1 = $statement1->execute();
         $success2 = $statement2->execute();
@@ -67,9 +72,10 @@ class BookDAO {
             FROM books, bookCategories, bookCategoryAssociation
             WHERE bookCategoryAssociation.isbn = books.isbn
             AND bookCategories.categoryId = bookCategoryAssociation.categoryId
-            AND books.isbn = '$isbn'";
+            AND books.isbn = :isbn";
 
         $statement = $db->prepare($query); // protect against SQL injection
+        $statement->bindValue(":isbn", $isbn);
         $statement->setFetchMode(PDO::FETCH_CLASS, 'BookModel');
         $statement->execute();
         $book = $statement->fetch();
@@ -100,9 +106,10 @@ class BookDAO {
 
         $query = "SELECT DISTINCT bookCategories.* FROM bookCategories, bookCategoryAssociation
                   WHERE bookCategories.categoryId
-                  IN (SELECT categoryId FROM bookCategoryAssociation WHERE isbn = '$isbn')";
+                  IN (SELECT categoryId FROM bookCategoryAssociation WHERE isbn = :isbn)";
 
         $statement = $db->prepare($query); // protect against SQL injection
+        $statement->bindValue(":isbn", $isbn);
         $statement->setFetchMode(PDO::FETCH_CLASS, 'BookCategoryModel');
         $statement->execute();
         $books = $statement->fetchAll();
@@ -114,10 +121,12 @@ class BookDAO {
         $db = DatabaseConnection::getDatabase();
 
         $query = "SELECT books.* FROM books WHERE books.isbn IN
-                    (SELECT isbn FROM bookCategoryAssociation WHERE categoryId = $categoryId)";
+                    (SELECT isbn FROM bookCategoryAssociation WHERE categoryId = :catId)";
 
         $statement = $db->prepare($query);
+        $statement->bindValue(":catId", $categoryId);
         $statement->setFetchMode(PDO::FETCH_CLASS, 'BookModel');
+        
         $statement->execute();
         $books = $statement->fetchAll();
         
@@ -132,18 +141,23 @@ class BookDAO {
     public static function increaseBookQuantity($isbn, $quantityToAdd) {
         $db = DatabaseConnection::getDatabase();
 
-        $query = "UPDATE books SET quantity = quantity + $quantityToAdd WHERE isbn = '$isbn'";
+        $query = "UPDATE books SET quantity = quantity + :quantityToAdd WHERE isbn = :isbn";
 
         $statement = $db->prepare($query); // protect against SQL injection
+        $statement->bindValue(":isbn", $isbn);
+        $statement->bindValue(":quantityToAdd", $quantityToAdd);
+        
         return $statement->execute();
     }
     
     public static function decrementBookQuantity($isbn) {
         $db = DatabaseConnection::getDatabase();
 
-        $query = "UPDATE books SET quantity = quantity - 1 WHERE isbn = '$isbn' and quantity > 0";
-
-        $statement = $db->prepare($query); // protect against SQL injection
+        $query = "UPDATE books SET quantity = quantity - 1 WHERE isbn = :isbn and quantity > 0";
+        
+        $statement = $db->prepare($query); // protect against SQL injection.
+        $statement->bindValue(":isbn", $isbn);
+        
         return $statement->execute();
     }
     

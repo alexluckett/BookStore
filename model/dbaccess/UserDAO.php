@@ -10,9 +10,12 @@ class UserDAO {
     public static function updateUserBalance($userId, $balance) {
         $db = DatabaseConnection::getDatabase();
 
-        $query = "UPDATE users SET accountBalance = $balance WHERE userId = $userId";
+        $query = "UPDATE users SET accountBalance = :balance WHERE userId = :userId";
 
         $statement = $db->prepare($query); // protect against SQL injection
+        $statement->bindValue(":userId", $userId);
+        $statement->bindValue(":balance", $balance);
+        
         $statement->setFetchMode(PDO::FETCH_CLASS, 'UserModel');
         $result = $statement->execute();
         
@@ -23,9 +26,12 @@ class UserDAO {
         $db = DatabaseConnection::getDatabase();
 
         $query = "SELECT users.*, userPermissions.permissionString from users, userPermissions "
-                . "WHERE users.username = '$username' and users.password = '$passwordMd5' and users.permission = userPermissions.permissionId";
+                . "WHERE users.username = :username and users.password = :passwordMd5 and users.permission = userPermissions.permissionId";
 
         $statement = $db->prepare($query); // protect against SQL injection
+        $statement->bindValue(":username", $username);
+        $statement->bindValue(":passwordMd5", $passwordMd5);
+        
         $statement->setFetchMode(PDO::FETCH_CLASS, 'UserModel');
         $statement->execute();
         $user = $statement->fetch();
@@ -44,9 +50,11 @@ class UserDAO {
         $db = DatabaseConnection::getDatabase();
 
         $query = "SELECT users.*, userPermissions.permissionString from users, userPermissions "
-                . "WHERE users.userId = '$userId' and users.permission = userPermissions.permissionId";
+                . "WHERE users.userId = :userId and users.permission = userPermissions.permissionId";
 
         $statement = $db->prepare($query); // protect against SQL injection
+        $statement->bindValue(":userId", $userId);
+        
         $statement->setFetchMode(PDO::FETCH_CLASS, 'UserModel');
         $statement->execute();
         $user = $statement->fetch();
@@ -73,8 +81,12 @@ class UserDAO {
         
         $passwordMd5 = md5($password); // not the most secure, but good enough for this coursework
 
-        $query = "INSERT into users VALUES(DEFAULT, '$username', '$passwordMd5', $permissionLevel, $accountBalance)";
+        $query = "INSERT into users VALUES(DEFAULT, :username, :passwordMd5, :permissionLevel, :accountBalance)";
         $statement = $db->prepare($query); // protect against SQL injection
+        $statement->bindValue(":username", $username);
+        $statement->bindValue(":passwordMd5", $passwordMd5);
+        $statement->bindValue(":permissionLevel", $permissionLevel);
+        $statement->bindValue(":accountBalance", $accountBalance);
         
         return $statement->execute();
     }
@@ -82,8 +94,9 @@ class UserDAO {
     public static function deleteUser($userId) {
         $db = DatabaseConnection::getDatabase();
 
-        $query = "DELETE FROM users WHERE userId = '$userId'";
+        $query = "DELETE FROM users WHERE userId = :userId";
         $statement = $db->prepare($query); // protect against SQL injection
+        $statement->bindValue(":userId", $userId);
         
         return $statement->execute();
     }

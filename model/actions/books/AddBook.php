@@ -1,6 +1,7 @@
 <?php
 
 include_once 'model/utils/FileSaver.php';
+include_once 'model/utils/StringUtils.php';
 
 /**
  * Adds a book into the system.
@@ -18,14 +19,18 @@ class AddBook extends AuthenticatedAction {
         $bookModel = $this->constructBook($requestParams);
         $categoryId = $requestParams['categories'];
         
-        $success = BookDAO::addBook($bookModel, $categoryId);
+        $success = false;
         
-        if($success) {
-            $this->uploadFile($bookModel); // only upload if book was added
+        try {
+            $success = BookDAO::addBook($bookModel, $categoryId);
             $_REQUEST['message'] = 'Book: '.$bookModel->isbn.' added';
             $_REQUEST['alertType'] = 'success';
-        } else {
-            $_REQUEST['message'] = 'Unable to add book.';
+        } catch (Exception $ex) {
+            $_REQUEST['message'] = 'Unable to add book. Ensure ISBN is not already in the system.';
+        }
+
+        if($success) {
+            $this->uploadFile($bookModel); // only upload if book was added
         }
         
         $_REQUEST['books'] = BookDAO::getBookList();
@@ -64,11 +69,14 @@ class AddBook extends AuthenticatedAction {
      */
     private function constructBook($requestParams) {
         $book = new BookModel();
-        
-        foreach ($requestParams as $key => $value) { // use magic setter methods to enter book details    
-            $book->$key = $value;
-        }
-        
+
+        $book->setIsbn($requestParams['isbn']);
+        $book->setTitle($requestParams['title']);
+        $book->setAuthor($requestParams['author']);
+        $book->setPrice($requestParams['price']);
+        $book->setQuantity($requestParams['quantity']);
+        $book->categories = $requestParams['categories'];
+
         return $book;
     }
     

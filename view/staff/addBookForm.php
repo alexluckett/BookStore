@@ -3,7 +3,7 @@
         margin-bottom: 5px;
     }
     
-    form > input-group {
+    form > .input-group {
         margin-bottom: 5px;
     }
 </style>
@@ -25,8 +25,6 @@
         <label for="price" class="sr-only">Price: </label>
         <input name="price" type="text" class="form-control" placeholder="Price" required />
     </div>
-    
-    
     
     <label for="quantity" class="sr-only">Quantity: </label>
     <input name="quantity" type="number" class="form-control" placeholder="Quantity" required />

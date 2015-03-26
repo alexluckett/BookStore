@@ -10,9 +10,10 @@ class CategoryDAO {
     public static function createCategory($categoryName) {
         $db = DatabaseConnection::getDatabase();
         
-        $query = "INSERT INTO bookCategories VALUES(DEFAULT, '$categoryName')";
+        $query = "INSERT INTO bookCategories VALUES(DEFAULT, :categoryName)";
         
         $statement = $db->prepare($query); // protect against SQL injection
+        $statement->bindValue(":categoryName", $categoryName);
         
         return $statement->execute();
     }
@@ -20,8 +21,9 @@ class CategoryDAO {
     public static function deleteCategory($categoryId) {
         $db = DatabaseConnection::getDatabase();
         
-        $query = "DELETE FROM bookCategories WHERE categoryId = $categoryId";
+        $query = "DELETE FROM bookCategories WHERE categoryId = :categoryId";
         $statement = $db->prepare($query); // protect against SQL injection
+        $statement->bindValue(":categoryId", $categoryId);
         
         return $statement->execute();
     }
