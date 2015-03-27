@@ -7,6 +7,13 @@
  */
 class UserDAO {
     
+    /**
+     * Update a user's balance.
+     * 
+     * @param int $userId
+     * @param decimal $balance
+     * @return bool
+     */
     public static function updateUserBalance($userId, $balance) {
         $db = DatabaseConnection::getDatabase();
 
@@ -22,8 +29,16 @@ class UserDAO {
         return $result;
     }
     
-    public static function validateUserLogin($username, $passwordMd5) {
+    /**
+     * Checks if a given username/password is correct
+     * @param string $username
+     * @param string $password
+     * @return UserModel
+     */
+    public static function validateUserLogin($username, $password) {
         $db = DatabaseConnection::getDatabase();
+        
+        $passwordMd5 = md5($password);
 
         $query = "SELECT users.*, userPermissions.permissionString from users, userPermissions "
                 . "WHERE users.username = :username and users.password = :passwordMd5 and users.permission = userPermissions.permissionId";
@@ -42,8 +57,7 @@ class UserDAO {
     /**
      * Returns a user from the database, complete with their permissionString.
      * 
-     * @param String $username
-     * @param String $passwordMd5 MD5 hash of password
+     * @param int $userId
      * @return UserModel
      */
     public static function getUser($userId) {
@@ -62,6 +76,11 @@ class UserDAO {
         return $user; // need one user returned, else invalid login details
     }
     
+    /**
+     * Returns a lsit of students.
+     * 
+     * @return array
+     */
     public static function getStudents() {
         $db = DatabaseConnection::getDatabase();
 
@@ -76,6 +95,15 @@ class UserDAO {
         return $users;
     }
     
+    /**
+     * Creates a new user.
+     * 
+     * @param string $username
+     * @param string $password
+     * @param int $permissionLevel
+     * @param decimal $accountBalance
+     * @return bool
+     */
     public static function createUser($username, $password, $permissionLevel, $accountBalance) {
         $db = DatabaseConnection::getDatabase();
         
@@ -91,6 +119,12 @@ class UserDAO {
         return $statement->execute();
     }
     
+    /**
+     * Delete an existing user.
+     * 
+     * @param int $userId
+     * @return bool
+     */
     public static function deleteUser($userId) {
         $db = DatabaseConnection::getDatabase();
 
@@ -101,6 +135,12 @@ class UserDAO {
         return $statement->execute();
     }
     
+    /**
+     * Helper function to create a new student.
+     * 
+     * @param string $username
+     * @param string $password
+     */
     public static function createStudent($username, $password) {
         self::createUser($username, $password, 2, 0); // 2 = student, 0 = no balance
     }

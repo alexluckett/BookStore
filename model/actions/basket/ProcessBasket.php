@@ -20,25 +20,33 @@ class ProcessBasket extends AuthenticatedAction {
         $messageType = "success";
         $errorMessages = [];
 
-        foreach ($books as $book) {
-            try {
-                $user = UserDAO::getUser($userId); // return updated user after modification
-                $this->processItem($book, $user);
+        foreach ($books as $book) { // processes order sequentially
+            try { // user may not have enough balance to complete order
+                $user = UserDAO::getUser($userId); // get updated user after modification
+                $this->processItem($book, $user); // process this book
             } catch (Exception $ex) {
                 $messageType = "danger";
                 array_push($errorMessages, $ex->getMessage()); // log all error messages
             }
         }
         
+        /* status messages to view */
         $_REQUEST['user'] = $user;
         $_REQUEST['messageType'] = $messageType;
-        $_REQUEST['messages'] = $errorMessages;
+        $_REQUEST['messages'] = $errorMessages; // return a list of all errors
     }
 
     public function pageInclude() {
         return "/view/staff/viewOrderConfirmation.php";
     }
 
+    /**
+     * Processes a single item in the basket.
+     * 
+     * @param string $item
+     * @param UserModel $user
+     * @throws Exception
+     */
     private function processItem($item, $user) {
         if ($item->quantity == 0) {
             throw new Exception("No \"" . $item->title . "\" left in stock");

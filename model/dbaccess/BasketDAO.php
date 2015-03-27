@@ -7,6 +7,13 @@
  */
 class BasketDAO {
     
+    /**
+     * Adds a book to a user's basket.
+     * 
+     * @param int $userId
+     * @param string $isbn
+     * @return bool
+     */
     public static function addToBasket($userId, $isbn) {
         $db = DatabaseConnection::getDatabase();
 
@@ -19,6 +26,11 @@ class BasketDAO {
         return $statement->execute();
     }
     
+    /**
+     * Returns a list of books in a user's basket.
+     * 
+     * @param int $userId
+     */
     public static function getBooksFromBasket($userId) {
         $db = DatabaseConnection::getDatabase();
 
@@ -55,6 +67,12 @@ class BasketDAO {
         return $statement->execute();
     }
     
+    /**
+     * Empties a user's basket.
+     * 
+     * @param int $userId
+     * @return bool
+     */
     public static function emptyBasket($userId) {
         $db = DatabaseConnection::getDatabase();
 

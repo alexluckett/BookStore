@@ -23,6 +23,7 @@ class AddToBasket extends AuthenticatedAction {
             $_REQUEST['message'] = "Book (".$isbn.") is already in your basket.";
         }
         
+        /* these pages are required by the view (book list) we're sending user to */
         $_REQUEST["categories"] = CategoryDAO::getBookCategories();
         $_REQUEST['books'] = BookDAO::getBookList();
     }

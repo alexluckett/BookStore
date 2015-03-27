@@ -19,7 +19,7 @@ class DeleteUser extends AuthenticatedAction {
             throw new Exception("Administrators cannot be deleted.");
         }
         
-        BasketDAO::emptyBasket($userId);
+        BasketDAO::emptyBasket($userId); // basket must be emptied first (foreign key constraints)
         UserDAO::deleteUser($userId);
         
         $_REQUEST['users'] = UserDAO::getStudents(); // refresh updated users

@@ -25,7 +25,7 @@ class DeleteBasketItem extends AuthenticatedAction {
             $_REQUEST['message'] = "Book ($isbn) successfully removed from basket.";
         }
         
-        $_REQUEST['bookList'] = BasketDAO::getBooksFromBasket($userId);;
+        $_REQUEST['bookList'] = BasketDAO::getBooksFromBasket($userId); // refresh list of books in basket
     }
 
     public function pageInclude() {

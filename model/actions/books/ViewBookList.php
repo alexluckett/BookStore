@@ -16,19 +16,19 @@ class ViewBookList extends AuthenticatedAction {
     public function execute($requestParams) {
         $_REQUEST["categories"] = CategoryDAO::getBookCategories();
         
-        $refineByCategory = isset($requestParams['categoryId']);
+        $refineByCategory = isset($requestParams['categoryId']); // if user wants specific category
                 
         if($refineByCategory) {
-            if(isset($requestParams['categoryId']) && $requestParams['categoryId'] != 0) {
-                $books = BookDAO::getBooksForCategory($requestParams['categoryId']);
+            if(isset($requestParams['categoryId']) && $requestParams['categoryId'] != 0) { // advanced search for category
+                $books = BookDAO::getBooksForCategory($requestParams['categoryId']); // gets books for a single category, providing category is valid
             } else {
-                $books = BookDAO::getBookList();
+                $books = BookDAO::getBookList(); // all books, regardless of category. category 0 = all.
             }
         } else {
-            $books = BookDAO::getBookList();
+            $books = BookDAO::getBookList(); // all books
         }
         
-        $_REQUEST["books"] = $books;
+        $_REQUEST["books"] = $books; // send to view
     }
 
     /**

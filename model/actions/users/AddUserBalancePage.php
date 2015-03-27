@@ -16,7 +16,7 @@ class AddUserBalancePage extends AuthenticatedAction {
         
         $userToEdit = UserDAO::getUser($userId);
         
-        $_REQUEST['userToEdit'] = $userToEdit;
+        $_REQUEST['userToEdit'] = $userToEdit; // send user details to view
     }
 
     public function pageInclude() {

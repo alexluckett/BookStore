@@ -18,7 +18,7 @@ class ViewAddQuantity extends AuthenticatedAction {
             $book = BookDAO::getBook($requestParams['isbn']);
         }
         
-        $_REQUEST['book'] = $book;
+        $_REQUEST['book'] = $book; // view needs the details of the book we're adding a quantity to
     }
 
     public function pageInclude() {

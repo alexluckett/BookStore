@@ -12,7 +12,7 @@ class CreateAccount extends GuestAction {
         $password = $requestParams['password'];
         $passwordConfirm = $requestParams['passwordConfirm'];
         
-        if($password === $passwordConfirm) {
+        if($password === $passwordConfirm) { // confirmed password must match original
             try {
                 UserDAO::createStudent($username, $password);
                 $this->setMessage("success", "User account created",
@@ -23,13 +23,18 @@ class CreateAccount extends GuestAction {
         } else {
             $this->setMessage("error", "Invalid login details", "Your passwords do not match. Please try again.");
         }
-        
     }
 
     public function pageInclude() {
         return "/view/register.php";
     }
     
+    /**
+     * Sends a message to the view to display.
+     * @param string $type
+     * @param string $title
+     * @param string $message
+     */
     private function setMessage($type, $title, $message) {
         $_REQUEST['messageType'] = $type;
         $_REQUEST["messageTitle"] = $title;

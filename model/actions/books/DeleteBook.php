@@ -21,7 +21,7 @@ class DeleteBook extends AuthenticatedAction {
         $success = BookDAO::deleteBook($isbn);
         
         if($success) {
-            $this->deleteCoverImage($isbn);
+            $this->deleteCoverImage($isbn); // only delete cover image if the book has gone too
             $_REQUEST['message'] = 'Book: '.$isbn.' deleted';
         } else {
             $_REQUEST['message'] = 'Unable to delete book.';
@@ -36,10 +36,10 @@ class DeleteBook extends AuthenticatedAction {
     }
     
     private function deleteCoverImage($isbn) {
-        $filePath = AddBook::UPLOAD_DIRECTORY."/".$isbn.".png";
+        $filePath = AddBook::UPLOAD_DIRECTORY."/".$isbn.".png"; // construct file path
         
         if(isset($isbn) && file_exists($filePath)) {
-            unlink($filePath);
+            unlink($filePath); // delete image
         }
     }
     

@@ -12,7 +12,7 @@ class ViewUsers extends AuthenticatedAction {
     }
     
     public function execute($requestParams) {
-        $_REQUEST['users'] = UserDAO::getStudents();
+        $_REQUEST['users'] = UserDAO::getStudents(); // send list of users to view
     }
 
     public function pageInclude() {

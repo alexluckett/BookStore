@@ -20,7 +20,7 @@ class BookModel extends DomainModel {
         
         $newIsbn = StringUtils::stripSymbols($isbn); // strips all remaining symbols out of ISBN, e.g: 970-XXXXX turns to 970XXXXX
                 
-        if(strlen($newIsbn) !== 10 && strlen($newIsbn) !== 13) {
+        if(strlen($newIsbn) !== 10 && strlen($newIsbn) !== 13) { 
             throw new InvalidArgumentException("ISBN must be 10 or 13 characters.");
         }
         

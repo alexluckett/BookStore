@@ -7,6 +7,12 @@
  */
 class CategoryDAO {
     
+    /**
+     * Create a new category in the db.
+     * 
+     * @param string $categoryName
+     * @return bool
+     */
     public static function createCategory($categoryName) {
         $db = DatabaseConnection::getDatabase();
         
@@ -18,6 +24,12 @@ class CategoryDAO {
         return $statement->execute();
     }
     
+    /**
+     * Delete a book category.
+     * 
+     * @param int $categoryId
+     * @return bool
+     */
     public static function deleteCategory($categoryId) {
         $db = DatabaseConnection::getDatabase();
         
@@ -28,6 +40,11 @@ class CategoryDAO {
         return $statement->execute();
     }
     
+    /**
+     * Get a list of all book categories.
+     * 
+     * @return bool
+     */
     public static function getBookCategories() {
         $db = DatabaseConnection::getDatabase();
 

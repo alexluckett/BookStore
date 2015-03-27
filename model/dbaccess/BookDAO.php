@@ -7,6 +7,13 @@
  */
 class BookDAO {
     
+    /**
+     * Adds a book into the database/
+     * 
+     * @param BookModel $bookModel
+     * @param array $categoryIds
+     * @return boolean
+     */
     public static function addBook($bookModel, array $categoryIds) {        
         $db = DatabaseConnection::getDatabase();
 
@@ -19,15 +26,21 @@ class BookDAO {
         $statement->bindValue(":price", $bookModel->price);
         $statement->bindValue(":quantity", $bookModel->quantity);
         
-        var_dump($statement);
-        
         $success = $statement->execute(); // boolean
         
-        self::setBookCategories($bookModel->isbn, $categoryIds);
+        if($success) { // only add categories if book add was successful
+            self::setBookCategories($bookModel->isbn, $categoryIds);
+        }
         
         return $success;
     }
     
+    /**
+     * Sets the categories for a book
+     * 
+     * @param string $isbn
+     * @param array $categoryIds
+     */
     public static function setBookCategories($isbn, array $categoryIds) {
         $db = DatabaseConnection::getDatabase();
         
@@ -42,14 +55,18 @@ class BookDAO {
         }
     }
     
+    /**
+     * Delete a book from the database
+     * 
+     * @param string $isbn
+     * @return type
+     */
     public static function deleteBook($isbn) {
         $db = DatabaseConnection::getDatabase();
 
-        $query1 = "DELETE from bookCategoryAssociation WHERE isbn = :isbn";
-        $query2 = "DELETE from books WHERE books.isbn = :isbn";
-        $query3 = "DELETE from userBasket WHERE isbn = :isbn";
-        
-        var_dump($isbn);
+        $query1 = "DELETE from bookCategoryAssociation WHERE isbn = :isbn"; // delete all categories for that book
+        $query2 = "DELETE from userBasket WHERE isbn = :isbn"; // remove book from user's basket
+        $query3 = "DELETE from books WHERE books.isbn = :isbn"; // delete book
         
         $statement1 = $db->prepare($query1); // protect against SQL injection
         $statement1->bindValue(":isbn", $isbn);
@@ -65,6 +82,12 @@ class BookDAO {
         return $success1 && $success2 && $success3;
     }
     
+    /**
+     * Returns a book from the database, along with categories.
+     * 
+     * @param string $isbn
+     * @return BOokModel
+     */
     public static function getBook($isbn) {
         $db = DatabaseConnection::getDatabase();
 
@@ -80,9 +103,14 @@ class BookDAO {
         $statement->execute();
         $book = $statement->fetch();
         
-        return $book; // need one user returned, else invalid login details
+        return $book;
     }
     
+    /**
+     * Returns a list of books
+     * 
+     * @return array
+     */
     public static function getBookList() {
         $db = DatabaseConnection::getDatabase();
 
@@ -98,9 +126,15 @@ class BookDAO {
             $book->categories = $bookCats;
         }
         
-        return $books; // need one user returned, else invalid login details
+        return $books;
     }
     
+    /**
+     * Returns a list of all categories for a single book.
+     * 
+     * @param string $isbn
+     * @return array
+     */
     public static function getCategoriesForBook($isbn) {
         $db = DatabaseConnection::getDatabase();
 
@@ -114,9 +148,15 @@ class BookDAO {
         $statement->execute();
         $books = $statement->fetchAll();
         
-        return $books; // need one user returned, else invalid login details
+        return $books;
     }
     
+    /**
+     * Returns a list of all books for a single category.
+     * 
+     * @param int $categoryId
+     * @return array
+     */
     public static function getBooksForCategory($categoryId) {
         $db = DatabaseConnection::getDatabase();
 
@@ -138,6 +178,13 @@ class BookDAO {
         return $books; // list of all books for that category
     }
     
+    /**
+     * Increase the quantity for a given book by a set value.
+     * 
+     * @param string $isbn
+     * @param int $quantityToAdd
+     * @return bool
+     */
     public static function increaseBookQuantity($isbn, $quantityToAdd) {
         $db = DatabaseConnection::getDatabase();
 
@@ -150,6 +197,12 @@ class BookDAO {
         return $statement->execute();
     }
     
+    /**
+     * Decreases the quantity count by 1 for a given book.
+     * 
+     * @param string $isbn
+     * @return bool
+     */
     public static function decrementBookQuantity($isbn) {
         $db = DatabaseConnection::getDatabase();
 

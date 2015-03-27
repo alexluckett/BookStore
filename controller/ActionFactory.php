@@ -1,9 +1,8 @@
 <?php
 
 include_once 'IAction.php';
-include_once 'model/actions/AuthenticatedAction.php';
-include_once 'model/actions/GuestAction.php';
 
+include_once 'model/dbaccess/DatabaseConnection.php';
 include_once 'model/dbaccess/UserDAO.php';
 include_once 'model/dbaccess/BasketDAO.php';
 include_once 'model/dbaccess/BookDAO.php';
@@ -14,6 +13,8 @@ include_once 'model/BookCategoryModel.php';
 include_once 'model/BookModel.php';
 include_once 'model/UserModel.php';
 
+include_once 'model/actions/AuthenticatedAction.php';
+include_once 'model/actions/GuestAction.php';
 include_once 'model/actions/LoadPage.php';
 
 include_once 'model/actions/users/CreateAccount.php';
@@ -44,7 +45,7 @@ include_once 'model/actions/categories/ViewAddCategory.php';
 include_once 'model/actions/categories/ViewCategoryList.php';
 
 /**
- * Constrcuts a map of actions, then returns actions associated with it.
+ * Constructs a map of actions, then returns actions associated with it.
  *
  * @author Alex Luckett <lucketta@aston.ac.uk>
  */

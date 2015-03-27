@@ -16,7 +16,7 @@ class AddBook extends AuthenticatedAction {
     }
     
     public function execute($requestParams) { 
-        $bookModel = $this->constructBook($requestParams);
+        $bookModel = $this->constructBook($requestParams); // construct a book from params
         $categoryId = $requestParams['categories'];
         
         $success = false;
@@ -26,7 +26,7 @@ class AddBook extends AuthenticatedAction {
             $_REQUEST['message'] = 'Book: '.$bookModel->isbn.' added';
             $_REQUEST['alertType'] = 'success';
         } catch (Exception $ex) {
-            $_REQUEST['message'] = 'Unable to add book. Ensure ISBN is not already in the system.';
+            $_REQUEST['message'] = 'Unable to add book. Ensure ISBN is not already in the system.'; // print error to user
         }
 
         if($success) {
@@ -54,7 +54,7 @@ class AddBook extends AuthenticatedAction {
             $fileUploader = new FileSaver(self::UPLOAD_DIRECTORY, $permittedFileTypes);
             $fileUploader->saveFile($uploadedFile);
         } catch (Exception $ex) {
-            throw new Exception($ex->getMessage()." Placeholder cover photo will be used."); // apend specialised error message to exception
+            throw new Exception("Book successfully added. However: <br /><br />".$ex->getMessage()." Placeholder cover photo will be used."); // apend specialised error message to exception
         }
     }
 

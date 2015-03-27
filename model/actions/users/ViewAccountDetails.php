@@ -16,7 +16,7 @@ class ViewAccountDetails extends AuthenticatedAction {
         
         $user = UserDAO::getUser($userId);
         
-        $_REQUEST['user'] = $user;
+        $_REQUEST['user'] = $user; // send user's model to view
     }
 
     public function pageInclude() {

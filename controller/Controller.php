@@ -1,6 +1,5 @@
 <?php
 
-include_once ('DatabaseConnection.php');
 include_once ('ActionFactory.php');
 
 class Controller {
@@ -41,12 +40,12 @@ class Controller {
             if($this->debugEnabled) { var_dump($ex); }
             
             $this->displayError("Database connection error.", 
-                                "Unable to connect to database, or the operation has malfunctioned.");
+                                "Unable to connect to database, or the operation has malfunctioned."); // can't recover from database errors
         } catch (Exception $ex) {
             if($this->debugEnabled) { var_dump($ex); }
             
             $this->displayError("Specified action encountered a problem or does not exist.", 
-                                $ex->getMessage()." <a href='index.php'>Please click here to go back</a>.");
+                                $ex->getMessage()." <a href='index.php'>Please click here to go back</a>."); // specific action has failed to execute
         }
     }
     
@@ -70,20 +69,20 @@ class Controller {
      * @param IAction $action
      */
     private function loadPage($action) {
-        if(strlen($action->pageInclude()) !== 0) {
-            include( __DIR__."/..".$action->pageInclude());
+        $url = $action->pageInclude();
+        
+        if(strlen($url) !== 0) { // only execute if we have a URL
+            include( __DIR__."/..".$url);
         }     
     }
     
     /**
-     * Display a nerror message to the view
+     * Display an error message to the view
      * 
      * @param string $errorTitle
      * @param string $errorMessage
      */
-    private function displayError($errorTitle, $errorMessage) {
-        /* todo refactor this into new action */
-        
+    private function displayError($errorTitle, $errorMessage) {        
         $_REQUEST['errorTitle'] = $errorTitle;
         $_REQUEST['errorMessage'] = $errorMessage;
             

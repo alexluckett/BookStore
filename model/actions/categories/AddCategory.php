@@ -20,7 +20,7 @@ class AddCategory extends AuthenticatedAction {
         try {
             CategoryDAO::createCategory($categoryName);
         } catch (Exception $ex) {
-            $message = "Error creating cateogry: category already exists.";
+            $message = "Error creating cateogry: category already exists."; // error message for view
             $messageType = "danger";
         }
         

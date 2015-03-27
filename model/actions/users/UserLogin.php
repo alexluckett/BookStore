@@ -18,11 +18,9 @@ class UserLogin extends GuestAction {
     }
     
     private function authenticate($username, $password) {
-        $passwordMd5 = md5($password);
+        $user = UserDAO::validateUserLogin($username, $password);
 
-        $user = UserDAO::validateUserLogin($username, $passwordMd5);
-
-        if (isset($user) && !is_bool($user)) {
+        if (isset($user) && !is_bool($user)) { // if user is a boolean, then query failed. Object returned should be a UserModel.
             $_SESSION['userId'] = $user->userId;
             $_SESSION['username'] = $user->username;
             $_SESSION['permission'] = $user->permission;
@@ -44,7 +42,7 @@ class UserLogin extends GuestAction {
     public function pageInclude() {
         $url = "/index.php";
         
-        if($this->enableRedirect === false) {
+        if($this->enableRedirect === false) { // redirect to login page if failed
             $url = "/view/login.php";
         }
         

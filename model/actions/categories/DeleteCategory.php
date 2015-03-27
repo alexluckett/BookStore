@@ -28,12 +28,12 @@ class DeleteCategory extends AuthenticatedAction {
         $booksForCat = BookDAO::getBooksForCategory($catId);
         
         foreach($booksForCat as $book) {
-            $this->deleteBook($book->isbn);
+            $this->deleteBook($book->isbn); // deletes each book in a single category
         }
     }
     
     private function deleteBook($isbn) {
-        $bookDeleter = new DeleteBook($this->minimumPermissionLevel);
+        $bookDeleter = new DeleteBook($this->minimumPermissionLevel); // re-use book deletion action
         
         $bookArray = array(
             "isbn" => $isbn
