@@ -38,14 +38,14 @@ class UserDAO {
     public static function validateUserLogin($username, $password) {
         $db = DatabaseConnection::getDatabase();
         
-        $passwordMd5 = md5($password);
+        $passwordHashed = sha1($password);
 
         $query = "SELECT users.*, userPermissions.permissionString from users, userPermissions "
-                . "WHERE users.username = :username and users.password = :passwordMd5 and users.permission = userPermissions.permissionId";
+                . "WHERE users.username = :username and users.password = :hashedPassword and users.permission = userPermissions.permissionId";
 
         $statement = $db->prepare($query); // protect against SQL injection
         $statement->bindValue(":username", $username);
-        $statement->bindValue(":passwordMd5", $passwordMd5);
+        $statement->bindValue(":hashedPassword", $passwordHashed);
         
         $statement->setFetchMode(PDO::FETCH_CLASS, 'UserModel');
         $statement->execute();
@@ -107,12 +107,12 @@ class UserDAO {
     public static function createUser($username, $password, $permissionLevel, $accountBalance) {
         $db = DatabaseConnection::getDatabase();
         
-        $passwordMd5 = md5($password); // not the most secure, but good enough for this coursework
+        $passwordHashed = sha1($password); // not the most secure, but good enough for this coursework
 
-        $query = "INSERT into users VALUES(DEFAULT, :username, :passwordMd5, :permissionLevel, :accountBalance)";
+        $query = "INSERT into users VALUES(DEFAULT, :username, :hashedPassword, :permissionLevel, :accountBalance)";
         $statement = $db->prepare($query); // protect against SQL injection
         $statement->bindValue(":username", $username);
-        $statement->bindValue(":passwordMd5", $passwordMd5);
+        $statement->bindValue(":hashedPassword", $passwordHashed);
         $statement->bindValue(":permissionLevel", $permissionLevel);
         $statement->bindValue(":accountBalance", $accountBalance);
         
